@@ -626,12 +626,33 @@
   }
 }
 
+@media (max-width: 900px) {
+  :global(.hero-100-nav) {
+    gap: 1rem;
+    font-size: 0.95rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  :global(.hero-100-nav::-webkit-scrollbar) {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   :global(.hero-100-top) {
-    padding: 8px 14px;
+    padding: 10px 14px;
     height: auto;
     gap: 10px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  :global(.hero-100-nav) {
+    grid-column: 1 / -1;
   }
 
   :global(.hero-100-brand) {

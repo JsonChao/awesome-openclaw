@@ -1,0 +1,496 @@
+---
+import '../../styles/tailwind.css';
+import '../../styles/custom.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+const pageTitle = '全网资源聚合 | ai openclaw 教程导航';
+const pageDescription =
+  '聚合 ai openclaw 优质教程与实践内容，覆盖官方文档、云部署、技能开发、视频课程和安全研究，支持中英双语筛选。';
+const canonicalUrl = 'https://aiopenclaw.app/zh/resources/';
+
+const sources = [
+  'Alibaba Cloud',
+  'Tencent Cloud',
+  'DigitalOcean',
+  'Hostinger',
+  'IBM',
+  'Codecademy',
+  'Bilibili',
+  'CSDN',
+  'Reddit',
+  'YouTube',
+];
+
+const categories = [
+  {
+    title: '官方资源',
+    count: 42,
+    icon: '📖',
+    colorClass: 'border-blue-200 bg-blue-50 text-blue-700',
+    items: [
+      {
+        title: 'OpenClaw 官方文档',
+        desc: '完整 API、配置说明和架构文档，建议作为首读资料。',
+        source: 'OpenClaw',
+        lang: 'EN',
+        url: 'https://docs.openclaw.ai',
+      },
+      {
+        title: 'GitHub — openclaw/openclaw',
+        desc: '源码、Issue 与发布记录，追踪最新版本变化。',
+        source: 'GitHub',
+        lang: 'EN',
+        url: 'https://github.com/openclaw/openclaw',
+      },
+      {
+        title: 'ClawHub 技能市场',
+        desc: '发现、安装和管理技能生态，适合功能扩展。',
+        source: 'ClawHub',
+        lang: 'EN',
+        url: 'https://clawhub.com',
+      },
+      {
+        title: 'OpenClaw Newsletter',
+        desc: '官方周更，包含功能更新与安全修复摘要。',
+        source: 'Buttondown',
+        lang: 'EN',
+        url: 'https://buttondown.com/openclaw-newsletter',
+      },
+      {
+        title: '创始人公告：OpenClaw 与未来方向',
+        desc: '创始人视角说明项目路线与基金会治理方向。',
+        source: 'steipete.me',
+        lang: 'EN',
+        url: 'https://steipete.me/posts/2026/openclaw',
+      },
+      {
+        title: 'The Verge OpenClaw 新闻专题',
+        desc: '持续追踪 OpenClaw 相关新闻与行业动态。',
+        source: 'The Verge',
+        lang: 'EN',
+        url: 'https://www.theverge.com/news/872091/openclaw-moltbot-clawdbot-ai-agent-news',
+      },
+    ],
+  },
+  {
+    title: '云平台部署',
+    count: 16,
+    icon: '☁️',
+    colorClass: 'border-sky-200 bg-sky-50 text-sky-700',
+    items: [
+      {
+        title: '阿里云：部署 OpenClaw 构建钉钉助理',
+        desc: '轻量服务器一键部署，适合国内团队快速试跑。',
+        source: '阿里云',
+        lang: '中文',
+        url: 'https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw',
+      },
+      {
+        title: '腾讯云：OpenClaw 接入飞书教程',
+        desc: '覆盖 Lighthouse 部署与飞书机器人完整配置。',
+        source: '腾讯云',
+        lang: '中文',
+        url: 'https://cloud.tencent.com/developer/article/2625073',
+      },
+      {
+        title: 'DigitalOcean One-Click Deploy',
+        desc: '官方社区教程，适合海外节点快速上线。',
+        source: 'DigitalOcean',
+        lang: 'EN',
+        url: 'https://www.digitalocean.com/community/tutorials/how-to-run-openclaw',
+      },
+      {
+        title: 'AWS 中国：基于 Mac 实例部署',
+        desc: '适合苹果生态自动化工作流场景。',
+        source: 'AWS',
+        lang: '中文',
+        url: 'https://aws.amazon.com/cn/blogs/china/openclaw-deployment-aws-mac/',
+      },
+      {
+        title: 'Vercel AI Gateway 集成指南',
+        desc: '统一管理模型调用和平台接入监控。',
+        source: 'Vercel',
+        lang: 'EN',
+        url: 'https://vercel.com/docs/ai-gateway/chat-platforms/openclaw',
+      },
+      {
+        title: 'Raspberry Pi 部署 OpenClaw',
+        desc: '树莓派硬件场景下的轻量化部署方案。',
+        source: 'Raspberry Pi',
+        lang: 'EN',
+        url: 'https://www.raspberrypi.com/news/turn-your-raspberry-pi-into-an-ai-agent-with-openclaw/',
+      },
+    ],
+  },
+  {
+    title: '入门部署',
+    count: 58,
+    icon: '🏁',
+    colorClass: 'border-green-200 bg-green-50 text-green-700',
+    items: [
+      {
+        title: 'Apifox：下载安装使用图文教程',
+        desc: '系统要求、安装方式与常见问题排查。',
+        source: 'Apifox',
+        lang: '中文',
+        url: 'https://apifox.com/apiskills/openclaw-installation-and-usage-guide/',
+      },
+      {
+        title: '菜鸟教程：OpenClaw 完整教程',
+        desc: '从 clone 到 build 的全流程命令示例。',
+        source: '菜鸟教程',
+        lang: '中文',
+        url: 'https://www.runoob.com/ai-agent/openclaw-clawdbot-tutorial.html',
+      },
+      {
+        title: 'freeCodeCamp 全量新手教程',
+        desc: '面向初学者的结构化课程路径。',
+        source: 'freeCodeCamp',
+        lang: 'EN',
+        url: 'https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/',
+      },
+      {
+        title: 'YouTube：10 分钟完成部署',
+        desc: '适合零基础的快装演示和排错。',
+        source: 'YouTube',
+        lang: 'EN',
+        url: 'https://www.youtube.com/watch?v=khTA_AfJ01Y',
+      },
+      {
+        title: 'YouTube：Ubuntu + Ollama 零 API 方案',
+        desc: '本地模型路线，降低长期推理成本。',
+        source: 'YouTube',
+        lang: 'EN',
+        url: 'https://www.youtube.com/watch?v=_dzz5sJe-Ug',
+      },
+      {
+        title: 'DataCamp：WhatsApp 场景实战',
+        desc: '从安装到 Agent 技能扩展的完整路径。',
+        source: 'DataCamp',
+        lang: 'EN',
+        url: 'https://www.datacamp.com/tutorial/moltbot-clawdbot-tutorial',
+      },
+    ],
+  },
+  {
+    title: '技能开发与工具',
+    count: 39,
+    icon: '🧩',
+    colorClass: 'border-orange-200 bg-orange-50 text-orange-700',
+    items: [
+      {
+        title: 'ClawHub 技能开发文档',
+        desc: '技能创建、发布、版本管理与审核流程。',
+        source: 'OpenClaw Docs',
+        lang: 'EN',
+        url: 'https://docs.openclaw.ai/tools/clawhub',
+      },
+      {
+        title: 'Awesome OpenClaw Skills',
+        desc: '社区维护技能索引，按场景快速挑选。',
+        source: 'GitHub',
+        lang: 'EN',
+        url: 'https://github.com/VoltAgent/awesome-openclaw-skills',
+      },
+      {
+        title: 'OpenClaw 汉化版项目',
+        desc: 'CLI + Dashboard 中文化与本地化实践。',
+        source: 'GitHub',
+        lang: '中文',
+        url: 'https://github.com/1186258278/OpenClawChineseTranslation',
+      },
+      {
+        title: 'SecureClaw 安全插件',
+        desc: '面向技能执行审计与策略控制的开源方案。',
+        source: 'Help Net Security',
+        lang: 'EN',
+        url: 'https://www.helpnetsecurity.com/2026/02/18/secureclaw-open-source-security-plugin-skill-openclaw/',
+      },
+      {
+        title: 'NanoClaw 最小权限替代方案',
+        desc: '强调隔离与可审计性的小型 Agent 框架。',
+        source: 'ScriptByAI',
+        lang: 'EN',
+        url: 'https://www.scriptbyai.com/nanoclaw-openclaw-alternative/',
+      },
+      {
+        title: 'OpenClaw Mega Cheatsheet',
+        desc: '常用命令、配置和工作流速查表。',
+        source: 'Molt Founders',
+        lang: 'EN',
+        url: 'https://moltfounders.com/openclaw-mega-cheatsheet',
+      },
+    ],
+  },
+  {
+    title: '视频教程',
+    count: 91,
+    icon: '📹',
+    colorClass: 'border-red-200 bg-red-50 text-red-700',
+    items: [
+      {
+        title: 'B站：国内网络 + 本地部署全流程',
+        desc: '涵盖部署、接入和常用功能演示。',
+        source: 'Bilibili',
+        lang: '中文',
+        url: 'https://www.bilibili.com/video/BV1kH6nBFEPq/',
+      },
+      {
+        title: 'Lex Fridman Podcast #491',
+        desc: '创始人深度访谈，理解项目设计哲学。',
+        source: 'YouTube',
+        lang: 'EN',
+        url: 'https://www.youtube.com/watch?v=YFjfBk8HI5o',
+      },
+      {
+        title: 'OpenClaw Full Course',
+        desc: '系统课程覆盖 setup、skills、memory。',
+        source: 'YouTube',
+        lang: 'EN',
+        url: 'https://www.youtube.com/watch?v=vte-fDoZczE',
+      },
+      {
+        title: 'Secure Setup Guide',
+        desc: '以安全配置为核心的部署路线。',
+        source: 'YouTube',
+        lang: 'EN',
+        url: 'https://www.youtube.com/watch?v=YCD2FSvj35I',
+      },
+      {
+        title: '30 分钟掌握 OpenClaw',
+        desc: '多个真实业务场景快速上手。',
+        source: 'YouTube',
+        lang: 'EN',
+        url: 'https://www.youtube.com/watch?v=ji_Sd4si7jo',
+      },
+      {
+        title: 'B站：多 Agent 高级玩法',
+        desc: '任务分工、独立记忆与 token 优化策略。',
+        source: 'Bilibili',
+        lang: '中文',
+        url: 'https://www.bilibili.com/video/BV1dqffBMEcg/',
+      },
+    ],
+  },
+  {
+    title: '深度文章与安全研究',
+    count: 133,
+    icon: '🔬',
+    colorClass: 'border-indigo-200 bg-indigo-50 text-indigo-700',
+    items: [
+      {
+        title: 'The Hacker News：341 恶意技能事件',
+        desc: '供应链风险事件时间线与影响范围。',
+        source: 'The Hacker News',
+        lang: 'EN',
+        url: 'https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html',
+      },
+      {
+        title: 'Snyk：SKILL.md 攻击模型',
+        desc: '从威胁建模视角分析技能注入风险。',
+        source: 'Snyk',
+        lang: 'EN',
+        url: 'https://snyk.io/articles/skill-md-shell-access/',
+      },
+      {
+        title: 'Trend Micro：Atomic Stealer 投放',
+        desc: '恶意技能伪装成工具链进行信息窃取。',
+        source: 'Trend Micro',
+        lang: 'EN',
+        url: 'https://www.trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html',
+      },
+      {
+        title: 'Microsoft Security Blog：运行时风险',
+        desc: '企业部署中的身份隔离和权限模型建议。',
+        source: 'Microsoft',
+        lang: 'EN',
+        url: 'https://www.microsoft.com/en-us/security/blog/2026/02/19/running-openclaw-safely-identity-isolation-runtime-risk/',
+      },
+      {
+        title: 'Kaspersky：公开暴露实例分析',
+        desc: '开放实例暴露与配置错误带来的风险。',
+        source: 'Kaspersky',
+        lang: 'EN',
+        url: 'https://www.kaspersky.com/blog/openclaw-vulnerabilities-exposed/55263/',
+      },
+      {
+        title: 'Wired：OpenClaw 风险深度报道',
+        desc: '从真实用户案例看 Agent 风险边界。',
+        source: 'WIRED',
+        lang: 'EN',
+        url: 'https://www.wired.com/story/malevolent-ai-agent-openclaw-clawdbot/',
+      },
+    ],
+  },
+];
+
+const allItems = categories.flatMap((section) => section.items);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: pageTitle,
+      description: pageDescription,
+      url: canonicalUrl,
+      inLanguage: 'zh-CN',
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'awesome openclaw',
+        url: 'https://aiopenclaw.app/',
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://aiopenclaw.app/' },
+        { '@type': 'ListItem', position: 2, name: '全网资源聚合', item: canonicalUrl },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      name: 'ai openclaw 资源列表',
+      itemListElement: allItems.slice(0, 20).map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.title,
+        url: item.url,
+      })),
+    },
+  ],
+};
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/ai-openclaw-logo.png" />
+    <link rel="apple-touch-icon" href="/images/ai-openclaw-logo.png" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png" />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <style>
+      .resources-hero {
+        background:
+          radial-gradient(760px 520px at 78% 18%, rgba(93, 125, 255, 0.42), transparent 70%),
+          radial-gradient(620px 520px at 88% 75%, rgba(29, 190, 177, 0.2), transparent 70%),
+          linear-gradient(125deg, #071634 0%, #0a234f 45%, #0d2f66 76%, #0a2554 100%);
+        border-bottom: 1px solid rgba(66, 107, 176, 0.45);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-900 overflow-x-hidden">
+    <section class="resources-hero">
+      <SiteHeader active="all-resources" />
+      <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">📚 精选收录</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">全网优质资源聚合</h1>
+        <p class="text-base sm:text-lg text-blue-100 max-w-3xl mx-auto">
+          从阿里云、腾讯云到 DigitalOcean，从 B站到 Codecademy，一站式获取 OpenClaw 最佳教程与安全实践资料。
+        </p>
+      </div>
+    </section>
+
+    <main class="max-w-6xl mx-auto px-4 py-10 sm:py-12">
+      <section class="mb-8">
+        <div class="flex items-start gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm">
+          <span class="text-lg mt-0.5">⚠️</span>
+          <p>
+            <span class="font-semibold">安全提醒：</span>
+            近期发现恶意 Skills 通过社区渠道分发，安装第三方 Skill 前请先审查源码，优先选择官方与社区审核通过的来源。
+            <a
+              href="https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ml-1 underline hover:text-amber-900"
+            >
+              详情 ↗
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-center">
+          <div><div class="text-3xl font-bold text-blue-600">379+</div><div class="text-sm text-slate-500">篇教程</div></div>
+          <div><div class="text-3xl font-bold text-green-600">48</div><div class="text-sm text-slate-500">中文资源</div></div>
+          <div><div class="text-3xl font-bold text-purple-600">331</div><div class="text-sm text-slate-500">英文资源</div></div>
+          <div><div class="text-3xl font-bold text-orange-600">9</div><div class="text-sm text-slate-500">大分类</div></div>
+        </div>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="sr-only">资源来源</h2>
+        <div class="flex flex-wrap items-center justify-center gap-2 text-sm text-slate-500">
+          <span>收录来源：</span>
+          {sources.map((source) => (
+            <span class="px-3 py-1 bg-white rounded-full border border-slate-200 text-xs">{source}</span>
+          ))}
+        </div>
+      </section>
+
+      <div class="space-y-8">
+        {categories.map((category) => (
+          <section class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6">
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                <span>{category.icon}</span>
+                <span>{category.title}</span>
+              </h2>
+              <span class={`text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-full border ${category.colorClass}`}>{category.count} 篇</span>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {category.items.map((item) => (
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group block bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-blue-300 hover:bg-white transition-colors"
+                >
+                  <div class="flex items-center justify-between gap-2 mb-2">
+                    <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full border border-slate-200 bg-white text-slate-600">资源</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full border border-slate-200 bg-white text-slate-600">{item.lang}</span>
+                  </div>
+                  <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">{item.title}</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-3">{item.desc}</p>
+                  <div class="mt-3 flex items-center justify-between text-xs sm:text-sm">
+                    <span class="text-slate-500">{item.source}</span>
+                    <span class="text-blue-600 font-medium">访问 ↗</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <section class="text-center mt-10">
+        <a href="/" class="group inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl transition-colors">
+          返回首页继续学习
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+        <p class="text-slate-500 text-sm mt-3">
+          持续更新中 ·
+          <a href="https://github.com/JsonChao/awesome-openclaw" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
+            欢迎提交 PR 补充资源
+          </a>
+        </p>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </body>
+</html>

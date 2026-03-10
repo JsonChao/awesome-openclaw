@@ -1,0 +1,1097 @@
+---
+import '../../styles/tailwind.css';
+import '../../styles/custom.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+type Step = { title: string; detail: string; command?: string; verify: string };
+type Timeline = { time: string; event: string; value: string };
+type Faq = { q: string; a: string };
+type Narrative = { quote: string; storyTitle: string; story: string[]; dialogue: string[]; reflection: string };
+type StoryChapter = { title: string; paragraphs: string[] };
+type KnowledgeCard = { term: string; explanation: string; whyItMatters: string };
+
+type DayPlan = {
+  day: number;
+  title: string;
+  subtitle: string;
+  goal: string;
+  duration: string;
+  intro: string[];
+  chapterOverview: string[];
+  concepts: { title: string; text: string }[];
+  timeline: Timeline[];
+  steps: Step[];
+  deliverables: string[];
+  pitfalls: string[];
+  checklist: string[];
+  promptTemplate: string;
+  faq: Faq[];
+  preview: string;
+  references: { name: string; url: string }[];
+};
+
+const dayPlans: DayPlan[] = [
+  {
+    day: 1,
+    title: '认识 OpenClaw：从聊天到执行',
+    subtitle: '搞清楚 AI 助手与聊天机器人本质差异，建立正确起点。',
+    goal: '明确你要让助手替你接管哪些重复工作，并完成首个学习基线。',
+    duration: '阅读 + 实操约 30-45 分钟',
+    intro: [
+      '如果你把 OpenClaw 只当成“另一个 AI 聊天窗口”，你会很快失望。它真正的价值不是回答更聪明，而是能持续接入你的工具、记住上下文并主动执行。',
+      'Day 1 的目标不是安装，而是校准认知：你要先定义“什么任务值得自动化”，再决定接下来 6 天怎么投入。',
+      '今天结束时，你应该能回答三个问题：我为什么需要 AI 助手？我让它做什么？我如何判断它真的有用？'
+    ],
+    chapterOverview: [
+      'AI 助手与聊天机器人的能力边界对比',
+      'OpenClaw 的六个关键能力（通信、工具、技能、记忆、心跳、本地部署）',
+      '一个“典型工作日”示例，理解助手如何主动产生价值',
+      '今日实操：写出你的 3-5 条自动化候选任务'
+    ],
+    concepts: [
+      {
+        title: '1) 助手是“持续在线的执行体”',
+        text: '聊天机器人是“你问它答”；助手是“它会盯住你的目标并持续执行”。你不在线时，它也应该能完成巡检、汇总、提醒等任务。'
+      },
+      {
+        title: '2) 价值不在模型名字，而在执行闭环',
+        text: '同样是 GPT 或 Claude，放在聊天框里只是问答；放进 OpenClaw 的执行框架后，才能把“理解”变成“行动”。'
+      },
+      {
+        title: '3) 记忆决定长期体验',
+        text: '你今天告诉助手的偏好，明天应继续生效。长期记忆、身份设定和行为边界是效率提升的核心。'
+      }
+    ],
+    timeline: [
+      { time: '08:30', event: '自动晨报', value: '汇总邮件重点 + 今日会议 + 昨日异常指标' },
+      { time: '11:00', event: '临时请求', value: '按固定模板输出某项目周报草稿' },
+      { time: '16:00', event: '会前提醒', value: '提前 2 小时提醒并附会议背景链接' },
+      { time: '21:30', event: '日终沉淀', value: '把关键决策写入记忆，供次日调用' }
+    ],
+    steps: [
+      {
+        title: '写出“高频且低创造”的任务清单',
+        detail: '先不想技术细节，只筛任务。原则：重复出现、消耗时间、规则相对明确。',
+        command: 'cat > task-seeds.md <<\'TXT\'\n- 每天整理重点邮件并按优先级排序\n- 会前自动生成背景摘要\n- 每周固定产出运营/SEO简报\nTXT',
+        verify: '至少写出 3 条任务，且每条都可在 7 天内验证。'
+      },
+      {
+        title: '给每条任务加上“成功标准”',
+        detail: '没有成功标准，就无法判断助手是否真的替你省时间。',
+        verify: '每条任务都补充了触发条件、输出格式、完成时限。'
+      },
+      {
+        title: '定义 Day 2 首个上线任务',
+        detail: '选最简单一条做试点，降低失败成本。',
+        verify: '你已经确定 Day 2 的首个任务，不再犹豫“先做哪个”。'
+      }
+    ],
+    deliverables: [
+      'task-seeds.md（3-5 条真实任务）',
+      '每条任务的成功标准（触发/输出/时限）',
+      'Day 2 首个试点任务选择结果'
+    ],
+    pitfalls: [
+      '一开始就追求“全自动+全平台”，导致排错成本爆炸',
+      '没有成功标准，最后只能凭感觉判断效果',
+      '把高风险任务作为第一个试点，容易挫败'
+    ],
+    checklist: [
+      '能准确说出助手和聊天机器人的区别',
+      '已完成任务清单和成功标准定义',
+      '首个试点任务已确认'
+    ],
+    promptTemplate: `你是我的效率助手。\n任务：每天 08:30 输出晨间简报。\n输入：邮箱未读、今天日历、昨日核心指标。\n输出格式：\n1) 今日最重要3件事\n2) 风险提醒\n3) 建议的第一步行动\n限制：总字数不超过 180 字。`,
+    faq: [
+      {
+        q: '我现在只会用 ChatGPT，对 OpenClaw 会不会太难？',
+        a: '不会。Day 1 只要求你完成任务定义，不涉及复杂部署。先把问题定义清楚，后面安装会非常顺。'
+      },
+      {
+        q: '为什么 Day 1 不直接安装？',
+        a: '先安装再想场景通常会烂尾。先明确“你要自动化什么”，后面的每一步才有验收标准。'
+      }
+    ],
+    preview: 'Day 2 进入真正动手：完成安装、接入模型、发出第一条有效任务请求。',
+    references: [
+      { name: 'OpenClaw 官方文档', url: 'https://docs.openclaw.ai' },
+      { name: '开始前必读', url: '/guide/start-here/' },
+      { name: '全网资源聚合', url: '/zh/resources/' }
+    ]
+  },
+  {
+    day: 2,
+    title: '10 分钟上线第一个助手',
+    subtitle: '跑通安装、模型配置与首条任务。',
+    goal: '让助手可稳定响应，并完成一条有价值的真实请求。',
+    duration: '阅读 + 实操约 45-60 分钟',
+    intro: [
+      '今天的关键词是“闭环”：安装成功不算成功，能稳定执行真实任务才算。',
+      '你要避免“一次装完所有东西”。先跑通一个最小路径，后续再扩展平台和技能。'
+    ],
+    chapterOverview: [
+      '安装路径选择：本地 / 云端的取舍',
+      '模型密钥配置与安全处理',
+      '首条任务的验证标准'
+    ],
+    concepts: [
+      { title: '最小可用优先', text: '先做到“可用”，再追求“好看、全面、复杂”。' },
+      { title: '配置显式化', text: '配置项一定要文档化，便于迁移和排错。' },
+      { title: '任务验证优先于闲聊', text: '不要用“你好吗”测试，用真实工作任务测试。' }
+    ],
+    timeline: [
+      { time: '00:05', event: '安装完成', value: 'CLI 可调用且版本正确' },
+      { time: '00:15', event: '模型连通', value: '凭据校验通过，无鉴权错误' },
+      { time: '00:25', event: '首条任务', value: '得到结构化可用结果' },
+      { time: '00:40', event: '文档沉淀', value: '完成 .env.example 与启动说明' }
+    ],
+    steps: [
+      {
+        title: '安装并确认 CLI 可用',
+        detail: '以当前官方推荐命令为准，优先使用可追溯来源。',
+        command: 'npx openclaw@latest --help',
+        verify: '能看到命令帮助，且无环境依赖报错。'
+      },
+      {
+        title: '配置模型凭据（本地环境变量）',
+        detail: '敏感信息不入库，统一走环境变量。',
+        command: 'export OPENAI_API_KEY=\"<your_key>\"',
+        verify: '健康检查不再提示缺失密钥。'
+      },
+      {
+        title: '发出首条真实任务',
+        detail: '直接使用 Day 1 里定义的任务，不要临时换题。',
+        verify: '输出内容可直接用于工作，不需要大改。'
+      }
+    ],
+    deliverables: ['可运行实例', '一条通过验证的真实任务日志', '.env.example（脱敏）'],
+    pitfalls: ['密钥写进仓库', '一次接入多个平台', '只测聊天不测任务'],
+    checklist: ['CLI 可用', '模型连通', '首任务完成并可复现'],
+    promptTemplate: `请根据以下输入生成今天晨报：\n- 邮件重点：...\n- 会议安排：...\n- 昨日异常：...\n输出为：优先级清单 + 风险提醒 + 下一步动作。`,
+    faq: [
+      { q: '本地和云端怎么选？', a: '先看你对稳定在线的需求。想 24/7 运行优先云端；先试验可先本地。' },
+      { q: '首任务总是跑偏怎么办？', a: '先固定输出格式，再逐步补充约束，不要一次写太多要求。' }
+    ],
+    preview: 'Day 3 会让助手“像你团队里的人”，输出风格和决策边界稳定下来。',
+    references: [
+      { name: '本地安装指南', url: '/guide/install/local/' },
+      { name: '云端部署指南', url: '/guide/install/cloud/' },
+      { name: 'FAQ：如何开始', url: '/faq/how-to-start-ai-openclaw/' }
+    ]
+  },
+  {
+    day: 3,
+    title: '配置助手人格与记忆',
+    subtitle: '让输出稳定、语气统一、边界可控。',
+    goal: '完成你的“助手操作手册”，并通过一致性回归测试。',
+    duration: '阅读 + 实操约 50-70 分钟',
+    intro: [
+      '真正好用的助手，不是每次都“惊喜”，而是每次都“稳定”。',
+      '你今天要做的是把隐性偏好写成显性规则，让系统可维护。'
+    ],
+    chapterOverview: ['角色与语气设定', '记忆分层策略', '三类任务一致性验证'],
+    concepts: [
+      { title: '规则先于感觉', text: '把“专业点”改成可执行规则，如“先结论后步骤、最多 180 字”。' },
+      { title: '记忆分层', text: '短期记忆处理上下文，长期记忆沉淀偏好与决策。' },
+      { title: '回归测试', text: '每次改规则都要复测，避免“今天好、明天坏”。' }
+    ],
+    timeline: [
+      { time: '10:00', event: '定义规则', value: '完成风格和边界文档' },
+      { time: '11:00', event: '任务回归', value: '写作/分析/规划三类测试' },
+      { time: '12:00', event: '修正规则', value: '记录偏差并二次验证' }
+    ],
+    steps: [
+      {
+        title: '编写助手风格文档',
+        detail: '建议至少包含语气、结构、禁用行为、高风险确认规则。',
+        command: 'cat > assistant-style.md <<\'TXT\'\n- 先结论后步骤\n- 中文输出\n- 高风险操作需二次确认\nTXT',
+        verify: '文档可被你后续任务直接引用。'
+      },
+      {
+        title: '执行三类任务回归',
+        detail: '同一规则分别跑“总结/规划/分析”任务。',
+        verify: '输出风格一致，不再忽左忽右。'
+      }
+    ],
+    deliverables: ['assistant-style.md', '回归测试记录', '修正规则日志'],
+    pitfalls: ['规则太抽象', '改完不复测', '一个文档塞所有场景'],
+    checklist: ['规则可读可维护', '三类任务风格一致', '有修正闭环记录'],
+    promptTemplate: `角色：你是我的执行型助手。\n输出要求：先结论（3行内），后步骤（编号）。\n禁止：未经确认执行删除/付款/外发。`,
+    faq: [
+      { q: '记忆越多越好吗？', a: '不是。只保留对决策有帮助的记忆，噪声太多会干扰判断。' },
+      { q: '为什么风格会漂移？', a: '通常是规则不完整或冲突。先减少规则数量，再逐步补充。' }
+    ],
+    preview: 'Day 4 连接真实工具栈，让助手开始处理你的邮件、日历和外部信息。',
+    references: [
+      { name: '模型与推理策略', url: '/guide/models/' },
+      { name: '自动化与工作流', url: '/guide/automation/' },
+      { name: 'FAQ：成本是多少', url: '/faq/how-much-does-it-cost/' }
+    ]
+  },
+  {
+    day: 4,
+    title: '接入邮箱、日历与检索',
+    subtitle: '把助手从“会说”升级为“会做”。',
+    goal: '完成至少 2 个工具接入并跑通跨工具任务。',
+    duration: '阅读 + 实操约 60-90 分钟',
+    intro: [
+      '今天是体验跃迁日：当助手接入真实工具，它才会变成生产力系统。',
+      '接入顺序建议：先读后写、先低风险后高风险。'
+    ],
+    chapterOverview: ['工具接入顺序', '权限边界控制', '跨工具任务设计'],
+    concepts: [
+      { title: '先读后写', text: '先完成读取能力（邮件/日历/检索），再考虑写入和执行动作。' },
+      { title: '最小权限', text: '只给当前任务必须权限，避免“一把梭全开”。' },
+      { title: '链路思维', text: '目标不是“接了几个工具”，而是“能完成几条流程”。' }
+    ],
+    timeline: [
+      { time: '09:00', event: '接入邮箱', value: '读取未读邮件和标签' },
+      { time: '10:00', event: '接入日历', value: '读取今日会议和冲突' },
+      { time: '11:00', event: '跨工具任务', value: '自动生成会前摘要' }
+    ],
+    steps: [
+      { title: '接入第一个工具（邮箱或日历）', detail: '优先接你每天必用的工具。', verify: '助手能返回最近 24h 关键信息。' },
+      { title: '接入检索能力', detail: '用于补充外部事实与参考链接。', verify: '输出中包含可点击来源。' },
+      {
+        title: '执行跨工具任务',
+        detail: '示例：读取今日会议 + 检索项目背景 + 输出会前简报。',
+        command: '示例请求：请为今天14:00会议生成会前摘要，附3个关键背景链接。',
+        verify: '结果包含会议要点、背景信息、行动建议三部分。'
+      }
+    ],
+    deliverables: ['工具权限清单', '跨工具任务日志', '会前摘要模板'],
+    pitfalls: ['权限过大', '无来源引用', '链路中断无兜底'],
+    checklist: ['至少2个工具可稳定调用', '跨工具任务可复现', '权限与日志有文档'],
+    promptTemplate: `请读取我今天的日历会议，并结合最近邮件主题，输出每场会议的：\n1) 背景\n2) 风险\n3) 我应提前准备的材料。`,
+    faq: [
+      { q: '要不要一次接完所有工具？', a: '不要。每次接一个并验证，速度反而更快。' },
+      { q: '跨工具结果总不完整怎么办？', a: '先固定输出模板，再逐步补字段。' }
+    ],
+    preview: 'Day 5 进入技能生态，开始“标准化扩展能力”。',
+    references: [
+      { name: '资源聚合页', url: '/zh/resources/' },
+      { name: '系统架构', url: '/guide/architecture/system-design/' },
+      { name: 'FAQ：是否安全', url: '/faq/is-it-safe/' }
+    ]
+  },
+  {
+    day: 5,
+    title: '技能系统实战',
+    subtitle: '安装、验证、编排三步走，扩展可持续能力。',
+    goal: '完成 3 个技能上线与 1 条多技能任务链。',
+    duration: '阅读 + 实操约 60 分钟',
+    intro: [
+      '技能是 OpenClaw 的放大器，但也是风险入口。今天你要同时做“扩展能力”和“控制风险”。',
+      '标准是：每个技能都有验证样例、权限说明和回滚方案。'
+    ],
+    chapterOverview: ['技能选择标准', '安装验证流程', '多技能编排'],
+    concepts: [
+      { title: '价值优先', text: '先选能直接提升你主流程效率的技能。' },
+      { title: '验证先行', text: '装完马上测，不可用就卸。' },
+      { title: '版本可控', text: '记录版本，避免升级后行为飘移。' }
+    ],
+    timeline: [
+      { time: '10:00', event: '技能筛选', value: '按价值/风险/维护活跃度排序' },
+      { time: '11:00', event: '安装验证', value: '每个技能跑一条验证命令' },
+      { time: '12:00', event: '链路编排', value: '检索→分析→通知 一条龙' }
+    ],
+    steps: [
+      {
+        title: '安装技能并记录版本',
+        detail: '从可信来源安装，保留安装日志。',
+        command: 'npx clawhub@latest install <skill-name>',
+        verify: '技能可被调用，且日志中有版本信息。'
+      },
+      {
+        title: '给每个技能写验证样例',
+        detail: '避免“装了但不知道好没好”。',
+        verify: '3 个技能都有输入和期望输出。'
+      },
+      { title: '编排为一条任务链', detail: '至少组合两种能力完成业务动作。', verify: '链路可连续运行并可审计。' }
+    ],
+    deliverables: ['技能清单（版本/权限/用途）', '验证样例库', '多技能任务链说明'],
+    pitfalls: ['盲目追热门技能', '不看权限说明', '装太多导致上下文复杂'],
+    checklist: ['3个技能可用', '1条任务链可复现', '风险技能有审查结论'],
+    promptTemplate: `请调用【检索技能】收集今天 AI Agent 安全新闻，\n再用【总结技能】输出3条结论，\n最后用【通知技能】发送到指定频道。`,
+    faq: [
+      { q: '技能越多越好吗？', a: '不是。技能数量应小而精，围绕核心流程构建。' },
+      { q: '技能报错怎么定位？', a: '先单独调用，再看参数，再查权限。不要直接改整个链路。' }
+    ],
+    preview: 'Day 6 开始主动化，系统会在你不在线时持续产出。',
+    references: [
+      { name: '技能市场与自定义技能', url: '/guide/skills/' },
+      { name: 'ClawHub 技能市场', url: 'https://clawhub.com' },
+      { name: 'Awesome OpenClaw Skills', url: 'https://github.com/VoltAgent/awesome-openclaw-skills' }
+    ]
+  },
+  {
+    day: 6,
+    title: '主动化任务与稳定运行',
+    subtitle: '让助手从“被动响应”变成“主动执行”。',
+    goal: '上线一个 24h 稳定运行任务，并配置告警与重试。',
+    duration: '阅读 + 实操约 70-90 分钟',
+    intro: [
+      '主动化不是“加个定时器”这么简单，关键在可观测、可恢复、可暂停。',
+      '今天要做的是把你的关键任务做成“运营级流程”。'
+    ],
+    chapterOverview: ['触发机制设计', '异常处理与告警', '24小时观察与优化'],
+    concepts: [
+      { title: '任务有生命周期', text: '每个任务都要定义启动、重试、终止和升级路径。' },
+      { title: '告警要有责任人', text: '告警不是“发出来就行”，要有谁来处理。' },
+      { title: '先稳后快', text: '先跑稳定再扩容，不要反过来。' }
+    ],
+    timeline: [
+      { time: '08:30', event: '首次自动触发', value: '生成晨报并推送' },
+      { time: '12:00', event: '故障演练', value: '人为制造一次失败检查告警' },
+      { time: '次日08:30', event: '复盘', value: '汇总失败率和修复动作' }
+    ],
+    steps: [
+      { title: '定义主动任务配置', detail: '从低风险任务开始：日报、提醒、汇总。', verify: '任务可按计划触发。' },
+      { title: '配置重试与告警', detail: '最少有“失败通知 + 重试上限”。', verify: '故障演练可收到告警。' },
+      { title: '运行24小时并复盘', detail: '记录错误类型并做参数修正。', verify: '任务可连续运行或自动恢复。' }
+    ],
+    deliverables: ['主动任务配置', '告警策略', '24h运行复盘报告'],
+    pitfalls: ['只做成功路径', '告警泛滥', '缺少紧急停止开关'],
+    checklist: ['自动触发稳定', '失败可告警可追踪', '复盘报告可指导优化'],
+    promptTemplate: `每天 08:30 自动执行：\n1) 汇总邮件/日历/重点指标\n2) 输出 120 字晨报\n3) 推送到指定频道\n若失败：重试2次并通知我。`,
+    faq: [
+      { q: '为什么我的任务偶发失败？', a: '通常来自外部依赖抖动。先加超时、重试和降级。' },
+      { q: '需要监控哪些指标？', a: '成功率、平均耗时、失败类型、单任务成本。' }
+    ],
+    preview: 'Day 7 进入生产化收官：安全、版本、成本、治理。',
+    references: [
+      { name: '自动化与工作流', url: '/guide/automation/' },
+      { name: 'FAQ：如何 24x7 运行', url: '/faq/how-to-run-24x7/' },
+      { name: '云端部署指南', url: '/guide/install/cloud/' }
+    ]
+  },
+  {
+    day: 7,
+    title: '生产化收官与长期运营',
+    subtitle: '把 7 天成果固化为可复制、可审计、可交接体系。',
+    goal: '完成你的 OpenClaw 生产基线：安全、升级、回滚、成本。',
+    duration: '阅读 + 实操约 60-80 分钟',
+    intro: [
+      '“能跑”不等于“可运营”。生产化的核心是：出问题时你知道怎么办。',
+      'Day 7 要交付的不是功能，而是一套治理机制。'
+    ],
+    chapterOverview: ['安全巡检', '升级回滚演练', '运营指标与节奏'],
+    concepts: [
+      { title: '最小权限是底线', text: '账号、密钥、技能权限都必须可解释。' },
+      { title: '变更可回滚', text: '任何升级都应在可控时间内回到上一版本。' },
+      { title: '运营看板驱动迭代', text: '用指标而不是感觉做优化决策。' }
+    ],
+    timeline: [
+      { time: '10:00', event: '安全巡检', value: '账号/密钥/网络/技能四类检查' },
+      { time: '11:00', event: '升级演练', value: '执行升级并验证关键任务' },
+      { time: '11:30', event: '回滚演练', value: '在限定时间内恢复旧版本' }
+    ],
+    steps: [
+      { title: '执行安全检查清单', detail: '逐条记录通过与整改项。', verify: '有完整检查结果与责任人。' },
+      { title: '做一次升级+回滚演练', detail: '先演练再生产，避免线上首试。', verify: '能在预期时间回滚成功。' },
+      { title: '建立周/月复盘节奏', detail: '固定看成功率、耗时、成本。', verify: '形成可执行的复盘模板。' }
+    ],
+    deliverables: ['安全巡检报告', '升级回滚SOP', '运营复盘模板'],
+    pitfalls: ['无备份直接升级', '高权限长期不轮换', '没有固定复盘节奏'],
+    checklist: ['关键风险有整改方案', '变更流程可重复执行', '指标体系可支持长期优化'],
+    promptTemplate: `请按“安全-稳定-成本”三维输出本周运行报告：\n- 安全事件与处置\n- 任务成功率与失败原因\n- 模型调用成本与优化建议\n最后给出下周优先级Top3。`,
+    faq: [
+      { q: '我需要每天都复盘吗？', a: '不需要。日常看告警，周度做运营复盘，月度做策略复盘。' },
+      { q: '什么时候可以扩展多 Agent？', a: '当单 Agent 任务稳定且可监控后，再扩展更稳妥。' }
+    ],
+    preview: '你已完成 7 天路径。下一阶段建议按业务线拆分助手，并进入多 Agent 协作。',
+    references: [
+      { name: '安全总览', url: '/guide/security/' },
+      { name: '安全检查清单', url: '/faq/security/checklist/' },
+      { name: '隐私政策', url: '/privacy/' }
+    ]
+  }
+];
+
+const narratives: Record<number, Narrative> = {
+  1: {
+    quote: '“你不需要一个更会聊天的 AI，你需要一个会替你盯事、推进、交付的搭档。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '早上 8:30，你刚坐下打开电脑，助手已经把当天会议、未读重点邮件和潜在风险汇成 8 行摘要，不需要你自己翻 5 个 App。',
+      '这不是“炫技”，而是把每天重复发生的注意力消耗变成默认自动化。Day 1 要解决的，就是找到这些可自动化的“注意力黑洞”。'
+    ],
+    dialogue: [
+      '你：今天最重要三件事是什么？',
+      '助手：我按截止时间、业务影响和阻塞风险排序好了，先做 A，再处理 B，C 建议推迟到下午。'
+    ],
+    reflection: '小结：先定义“要替代的重复劳动”，再谈安装和模型，成功率会高很多。'
+  },
+  2: {
+    quote: '“安装不是终点，首条任务可用才是。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '很多人 Day 2 会陷入“装好了就很兴奋”，但到了晚上发现助手没有完成任何工作。根因通常是没有任务闭环标准。',
+      '你今天的关键动作是：安装完成后立刻用真实任务验证，不做“闲聊验证”。'
+    ],
+    dialogue: [
+      '你：请把今天 10 封未读邮件按紧急程度排序，并给我一个 30 秒处理建议。',
+      '助手：已按 P0/P1/P2 分类，先处理客户投诉与付款异常，其余合并批量回复。'
+    ],
+    reflection: '小结：你要追求的是“可交付结果”，不是“能对话”。'
+  },
+  3: {
+    quote: '“稳定比惊艳更重要。今天你在训练助手的‘职业习惯’。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '昨天它说话像同事，今天像客服，明天像论文摘要器，这是大多数人体验不稳的来源。',
+      'Day 3 的意义是把你脑中的偏好写成规则，让每次输出都像同一个人做的。'
+    ],
+    dialogue: [
+      '你：以后所有周报先给结论，再给数据证据，最后给行动建议。',
+      '助手：已记录该格式。后续默认按“结论-证据-行动”输出。'
+    ],
+    reflection: '小结：人格和边界一旦写清，后续自动化误判会明显减少。'
+  },
+  4: {
+    quote: '“连接工具之后，AI 才第一次真正走出聊天框。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '下午 2 点会前，你不再临时翻聊天记录找背景。助手自动从日历、邮件和网页资料抽取关键上下文，给你一页简报。',
+      '这类“跨工具汇总”是最先能看到 ROI 的场景，且对个人和团队都通用。'
+    ],
+    dialogue: [
+      '你：帮我准备 14:00 会前包，重点放在预算争议和待决事项。',
+      '助手：已生成简报，含背景时间线、争议点、建议发言顺序。'
+    ],
+    reflection: '小结：先接入读取类工具，再接写入类工具，风险最低。'
+  },
+  5: {
+    quote: '“技能不是收藏品，是流水线零件。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '你装了 20 个技能但只用 2 个，这是常见误区。真正有效的做法是围绕业务链路挑 3 个高价值技能并反复打磨。',
+      'Day 5 的核心是“标准化组合”：检索、分析、发送，三段拼起来就是可复用流程。'
+    ],
+    dialogue: [
+      '你：每天 18:00 抓取行业动态，输出 3 条结论并推送团队频道。',
+      '助手：任务链已编排，失败会重试两次并告警。'
+    ],
+    reflection: '小结：技能数量不重要，技能链稳定才重要。'
+  },
+  6: {
+    quote: '“从今天起，助手开始在你看不见的时候创造价值。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '你睡觉时，助手在跑巡检、汇总和提醒；你上班前，关键事项已经排好优先级。主动化带来的不是“酷”，而是可累计的时间复利。',
+      'Day 6 不是加一个 Cron 就结束，必须把告警、重试和暂停开关一起设计。'
+    ],
+    dialogue: [
+      '你：如果晨报任务失败，不要沉默，直接通知我并附最后一条错误日志。',
+      '助手：已启用失败告警策略，重试上限 2 次。'
+    ],
+    reflection: '小结：可观测性是主动化的地基，没有日志就没有优化。'
+  },
+  7: {
+    quote: '“真正的毕业不是会用，而是可运营、可交接、可持续。”',
+    storyTitle: '今天的真实场景',
+    story: [
+      '同样一套系统，有人两周后弃用，有人半年后离不开，差别在治理：权限、变更、成本、复盘。',
+      'Day 7 你会把前 6 天成果固化成可执行体系，未来加人、扩业务都能延续。'
+    ],
+    dialogue: [
+      '你：给我一份本周运营报告，先讲风险，再讲效率，最后讲下周优先级。',
+      '助手：已输出“安全-稳定-成本”三维报告，并附三项可执行优化动作。'
+    ],
+    reflection: '小结：把 AI 助手当长期资产经营，你会得到复利，而不是一次性新鲜感。'
+  }
+};
+
+const storybook: Record<number, { intro: string; chapters: StoryChapter[]; cards: KnowledgeCard[] }> = {
+  1: {
+    intro: '你今天不是在学一个工具，而是在重置你对“个人生产力系统”的理解方式。',
+    chapters: [
+      {
+        title: '第一章：你以为你需要答案，其实你需要托管',
+        paragraphs: [
+          '大多数人第一次接触 AI 助手，会把它当作“问答加速器”：有问题就问一句，没问题就关掉。这个模式看起来高效，但它的天花板很低，因为每次都从零开始，所有上下文都要你自己重新喂给它。',
+          '真正的效率提升，不是“回答更快”，而是“你不用每次都发起”。当系统知道你是谁、你在做什么、你下一步大概率要做什么，它才能开始主动提供价值。这就是 OpenClaw 与聊天式 AI 的分水岭。'
+        ]
+      },
+      {
+        title: '第二章：为什么很多人学 3 天就放弃',
+        paragraphs: [
+          '失败通常不是因为技术难，而是目标模糊。有人装完就兴奋，有人装完就迷茫。因为他没有定义“助手替代的是哪一段工作”，只能不断试错、不断怀疑。',
+          '所以 Day 1 的核心是任务建模：你先找到那几件重复、可标准化、又长期存在的事情。只有任务稳定，自动化才有复利。'
+        ]
+      },
+      {
+        title: '第三章：从“玩具”到“资产”的第一步',
+        paragraphs: [
+          '把助手当玩具，你会追功能；把助手当资产，你会追可运营。资产意味着可维护、可迭代、可交接。你今天写下的任务清单，就是后面 6 天所有优化的坐标系。',
+          '很多高手并不比你更懂模型，他们只是更早开始积累自己的任务语料和执行规则。你今天开始，3 周后体验就会和“偶尔用 AI”的人彻底不同。'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '任务建模',
+        explanation: '把一件工作拆成触发条件、输入来源、处理步骤、输出格式。',
+        whyItMatters: '没有模型化，AI 只能“看起来会做”；模型化后，AI 才能稳定地“重复做对”。'
+      },
+      {
+        term: '执行闭环',
+        explanation: '从任务发起到结果交付再到验证反馈的一整条链路。',
+        whyItMatters: '没有闭环的 AI 价值不稳定，无法进入日常工作流。'
+      },
+      {
+        term: '长期记忆价值',
+        explanation: '系统持续记住你的偏好、历史决策和工作上下文。',
+        whyItMatters: '越早开始积累，助手越像你团队里的“老同事”。'
+      }
+    ]
+  },
+  2: {
+    intro: '今天你会第一次感受到“系统上线”的真实重量：它不再是 Demo，而是要对结果负责。',
+    chapters: [
+      {
+        title: '第一章：安装不是胜利，稳定才是胜利',
+        paragraphs: [
+          '你可以 10 分钟装好环境，但你无法 10 分钟得到稳定系统。稳定来自于可复现配置、明确验证标准和故障可定位能力。',
+          '所以 Day 2 的标准不是“跑起来”，而是“可重复跑起来”。你今天做的每个配置记录，都是未来排错时节省出来的时间。'
+        ]
+      },
+      {
+        title: '第二章：为什么首条任务要尽量“无聊”',
+        paragraphs: [
+          '许多人喜欢拿复杂任务验证 AI，结果常常是失败后无法判断是模型问题、工具问题还是提示词问题。更好的策略是先拿“无聊但明确”的任务建立基线。',
+          '例如“按优先级总结邮件”这类任务，可评估、可比对、可复查。一旦它稳定，后续再升级到复杂链路会容易很多。'
+        ]
+      },
+      {
+        title: '第三章：配置文档是你的保险丝',
+        paragraphs: [
+          '高手和新手最大的差别不是谁更会配，而是谁更会写文档。你今天写下的 `.env.example`、版本号和启动命令，会在未来某次故障时救你一命。',
+          '把“我记得怎么配”换成“团队都能复现”，你的系统才真正有工程属性。'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '最小可用路径',
+        explanation: '先跑通一条最简单业务流程，再扩展复杂能力。',
+        whyItMatters: '复杂系统先求“可用”，能显著降低排错成本。'
+      },
+      {
+        term: '配置显式化',
+        explanation: '将关键参数、版本、命令写入可共享文档。',
+        whyItMatters: '防止“只在我机器上可以跑”的隐性风险。'
+      },
+      {
+        term: '任务验收标准',
+        explanation: '用可量化条件判定任务是否成功。',
+        whyItMatters: '避免“感觉还行”的伪成功。'
+      }
+    ]
+  },
+  3: {
+    intro: '今天是“让助手像同一个人”的一天，稳定人格比偶尔高光更重要。',
+    chapters: [
+      {
+        title: '第一章：你要的是可靠同事，不是随机天才',
+        paragraphs: [
+          '随机发挥的助手会让你每次都紧张，因为你不知道它今天会不会跑偏。真正可用的助手必须像可靠同事：表达稳定、边界清晰、风险可控。',
+          '这就是为什么我们要把语气、结构、禁区和确认机制写成规则，而不是靠临时对话纠偏。'
+        ]
+      },
+      {
+        title: '第二章：记忆不是越多越好，而是越准越好',
+        paragraphs: [
+          '很多人把所有信息都塞进记忆层，最后系统噪声巨大、判断失真。高质量记忆应当服务决策：偏好、约束、上下文关系，而不是流水账。',
+          '你今天要做的，是给记忆分级：哪些短期保留，哪些长期沉淀，哪些应当直接丢弃。'
+        ]
+      },
+      {
+        title: '第三章：规则应该“可回归测试”',
+        paragraphs: [
+          '每次你修正规则，都要跑固定任务回归。否则你无法知道这次改动是优化还是退化。',
+          '把助手当软件系统看待，你自然会建立版本意识、回归意识和变更意识。'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '风格回归',
+        explanation: '用同一组任务反复测试输出稳定性。',
+        whyItMatters: '保证规则变更不会破坏已有体验。'
+      },
+      {
+        term: '记忆分层',
+        explanation: '区分短期上下文与长期偏好沉淀。',
+        whyItMatters: '提升检索命中率并减少噪声干扰。'
+      },
+      {
+        term: '风险确认门',
+        explanation: '高风险动作必须经过显式确认。',
+        whyItMatters: '防止自动化误操作造成不可逆损失。'
+      }
+    ]
+  },
+  4: {
+    intro: '今天助手将第一次“接触你的真实世界”，这是价值跃迁点，也是风险上升点。',
+    chapters: [
+      {
+        title: '第一章：当工具连上，AI 才有手有脚',
+        paragraphs: [
+          '没有工具接入，AI 只能解释世界；接入工具后，AI 才能改变世界。邮件、日历、检索、浏览器等能力是执行系统的外骨骼。',
+          '但所有“有手有脚”的系统都必须有边界，尤其是权限边界。'
+        ]
+      },
+      {
+        title: '第二章：跨工具任务是效率爆发点',
+        paragraphs: [
+          '单工具价值有限，跨工具组合才是真正的效率爆发：日历提供时间脉络，邮件提供上下文，检索提供外部事实，最终汇成一份可行动简报。',
+          '你会发现，一旦跨工具链跑通，你的临时应对成本会明显下降。'
+        ]
+      },
+      {
+        title: '第三章：接入顺序决定项目成败',
+        paragraphs: [
+          '正确顺序是“先读后写，先低风险后高风险”。这条顺序可以让你在保持收益的同时，尽可能降低事故概率。',
+          '每多一个接入点，都要问自己：如果它失败，我能否快速定位？如果它被滥用，我能否及时收口？'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '跨工具编排',
+        explanation: '将多个工具按步骤组合为单条业务流程。',
+        whyItMatters: '把分散操作压缩成一次性产出，显著降低上下文切换。'
+      },
+      {
+        term: '权限最小化',
+        explanation: '只给当前任务必需权限，并设置过期策略。',
+        whyItMatters: '降低凭证泄露和误操作带来的影响半径。'
+      },
+      {
+        term: '来源可追溯',
+        explanation: '输出中保留引用与证据链。',
+        whyItMatters: '结果可验证，决策更可靠。'
+      }
+    ]
+  },
+  5: {
+    intro: '今天你会发现，技能系统不是“插件商店”，而是组织能力的供应链。',
+    chapters: [
+      {
+        title: '第一章：技能的本质是“可复用行为单元”',
+        paragraphs: [
+          '一个优秀技能不是“功能多”，而是“边界清晰、输入输出稳定”。它像工厂里的标准零件，可以被重复装配到不同场景。',
+          '当你用这种视角看技能，你就不会再盲目追数量。'
+        ]
+      },
+      {
+        title: '第二章：安装后验证比安装动作本身更重要',
+        paragraphs: [
+          '安装只是开始。你必须给每个技能配一条验证样例，确保在当前环境下可实际调用且结果可控。',
+          '没有验证样例的技能，等同于“潜在故障源”。'
+        ]
+      },
+      {
+        title: '第三章：从插件堆积走向链路设计',
+        paragraphs: [
+          '真正有用的做法是把技能串成链：信息输入、加工处理、结果分发。每个节点可替换、可重试、可审计。',
+          '这也是你从“个人玩家”走向“系统设计者”的关键一步。'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '技能契约',
+        explanation: '定义技能输入字段、输出格式与异常行为。',
+        whyItMatters: '契约稳定，链路才稳定。'
+      },
+      {
+        term: '版本锁定',
+        explanation: '固定技能版本并记录升级策略。',
+        whyItMatters: '防止“昨天能跑今天失效”的漂移问题。'
+      },
+      {
+        term: '链路审计',
+        explanation: '记录每次调用的参数、结果和状态。',
+        whyItMatters: '有据可查，才能持续优化和快速止损。'
+      }
+    ]
+  },
+  6: {
+    intro: '从今天开始，你的助手会在你不在场时继续工作，这就是生产力复利的开始。',
+    chapters: [
+      {
+        title: '第一章：主动化的核心是“可控自动”',
+        paragraphs: [
+          '自动化并不等于无人值守。真正好的主动化是“平时自动、异常可控、必要时可一键停”。',
+          '你需要把任务生命周期设计完整：触发、执行、重试、告警、终止。'
+        ]
+      },
+      {
+        title: '第二章：没有监控，就没有优化',
+        paragraphs: [
+          '很多团队上线自动化后依旧焦虑，因为看不到过程。可观测性不是附加功能，而是自动化系统的一部分。',
+          '当你能看见失败类型和耗时分布，优化路径就会非常清晰。'
+        ]
+      },
+      {
+        title: '第三章：稳定性来自演练，而不是祈祷',
+        paragraphs: [
+          '故障不是“会不会发生”，而是“什么时候发生”。你今天必须故意制造一次失败，验证告警和恢复链路。',
+          '演练做得越早，真实事故时你越冷静。'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '失败优先设计',
+        explanation: '先定义失败场景，再补成功路径。',
+        whyItMatters: '现实世界里失败比成功更需要设计。'
+      },
+      {
+        term: '告警可行动',
+        explanation: '告警中必须包含定位信息与下一步建议。',
+        whyItMatters: '减少“看到告警却不知道怎么办”的停滞。'
+      },
+      {
+        term: '降级策略',
+        explanation: '核心依赖不可用时切换到简化流程。',
+        whyItMatters: '保障关键任务不中断。'
+      }
+    ]
+  },
+  7: {
+    intro: '今天不是结束，而是把“能用”沉淀为“可长期运营”。',
+    chapters: [
+      {
+        title: '第一章：从个人实验到系统治理',
+        paragraphs: [
+          '你已经证明了助手能带来价值，接下来要证明这套系统可以长期稳定、可审计、可交接。',
+          '治理不是官僚流程，而是保护效率成果不被意外吞掉。'
+        ]
+      },
+      {
+        title: '第二章：安全、版本、成本是三条生命线',
+        paragraphs: [
+          '安全决定你敢不敢用，版本决定你稳不稳定，成本决定你能不能长期用。三者缺一不可。',
+          '成熟团队会把这三条生命线写成固定节奏：周巡检、月复盘、季度升级策略。'
+        ]
+      },
+      {
+        title: '第三章：真正的优势来自时间累积',
+        paragraphs: [
+          '同样的模型，同样的工具，为什么有人效果越来越好？因为他持续积累上下文、规则和流程资产。',
+          '从今天起，你的 AI 助手不是一次性项目，而是长期生产系统。越早进入运营节奏，优势越明显。'
+        ]
+      }
+    ],
+    cards: [
+      {
+        term: '运行基线',
+        explanation: '一组不可妥协的最低运行标准。',
+        whyItMatters: '防止系统在迭代中逐步失控。'
+      },
+      {
+        term: '变更治理',
+        explanation: '升级、回滚、验证必须形成标准流程。',
+        whyItMatters: '避免“临场修复”引发连锁故障。'
+      },
+      {
+        term: '复盘机制',
+        explanation: '定期复盘失败、成本和收益。',
+        whyItMatters: '把经验变成持续增长，而不是一次性记忆。'
+      }
+    ]
+  }
+};
+
+export function getStaticPaths() {
+  return Array.from({ length: 7 }, (_, i) => ({ params: { day: String(i + 1) } }));
+}
+
+const day = Number(Astro.params.day);
+const plan = dayPlans.find((p) => p.day === day) ?? dayPlans[0];
+const narrative = narratives[plan.day];
+const story = storybook[plan.day];
+const pageTitle = `第${plan.day}天：${plan.title} | 7天学习路径`;
+const pageDescription = `OpenClaw 7天学习路径第${plan.day}天：${plan.subtitle}。目标：${plan.goal}，${plan.duration}。`;
+const canonicalUrl = `https://aiopenclaw.app/day/${plan.day}/`;
+
+const breadcrumbItems = [
+  { '@type': 'ListItem', position: 1, name: '首页', item: 'https://aiopenclaw.app/' },
+  { '@type': 'ListItem', position: 2, name: '7天学习路径', item: 'https://aiopenclaw.app/#learning-path' },
+  { '@type': 'ListItem', position: 3, name: `第${plan.day}天`, item: canonicalUrl }
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      name: pageTitle,
+      description: pageDescription,
+      url: canonicalUrl,
+      inLanguage: 'zh-CN',
+      isPartOf: { '@type': 'WebSite', name: 'awesome openclaw', url: 'https://aiopenclaw.app/' }
+    },
+    { '@type': 'BreadcrumbList', itemListElement: breadcrumbItems },
+    {
+      '@type': 'HowTo',
+      name: `OpenClaw 第${plan.day}天学习计划`,
+      description: plan.goal,
+      step: plan.steps.map((step, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: step.title,
+        text: step.detail
+      }))
+    }
+  ]
+};
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/ai-openclaw-logo.png" />
+    <link rel="apple-touch-icon" href="/images/ai-openclaw-logo.png" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png" />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <style>
+      .day-hero {
+        background:
+          radial-gradient(760px 520px at 78% 18%, rgba(93, 125, 255, 0.42), transparent 70%),
+          radial-gradient(620px 520px at 88% 75%, rgba(29, 190, 177, 0.2), transparent 70%),
+          linear-gradient(125deg, #071634 0%, #0a234f 45%, #0d2f66 76%, #0a2554 100%);
+        border-bottom: 1px solid rgba(66, 107, 176, 0.45);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-900 overflow-x-hidden">
+    <section class="day-hero">
+      <SiteHeader active="learning" />
+      <div class="max-w-5xl mx-auto px-4 py-12 sm:py-16 text-white">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm mb-4">📅 7天学习路径 · Day {plan.day}</div>
+        <h1 class="text-3xl sm:text-4xl font-black tracking-tight">第{plan.day}天：{plan.title}</h1>
+        <p class="mt-4 text-blue-100 text-base sm:text-lg max-w-3xl">{plan.subtitle}</p>
+      </div>
+    </section>
+
+    <main class="max-w-5xl mx-auto px-4 py-10 sm:py-12 space-y-8">
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <blockquote class="border-l-4 border-blue-500/60 bg-blue-50 text-slate-800 rounded-r-lg px-4 py-3 text-sm sm:text-base italic">
+          {narrative.quote}
+        </blockquote>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">章节导读</h2>
+        <p class="mt-3 text-slate-600">{story.intro}</p>
+        <div class="mt-4 space-y-3 text-slate-700 leading-relaxed">
+          {plan.intro.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        <p class="mt-4 text-sm text-slate-500">⏱ {plan.duration}</p>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">故事主线</h2>
+        <div class="mt-5 space-y-6">
+          {story.chapters.map((chapter) => (
+            <article>
+              <h3 class="text-lg sm:text-xl font-bold text-slate-900">{chapter.title}</h3>
+              <div class="mt-2 space-y-3 text-slate-700 leading-relaxed">
+                {chapter.paragraphs.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">{narrative.storyTitle}</h2>
+        <div class="mt-4 space-y-3 text-slate-700 leading-relaxed">
+          {narrative.story.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <h3 class="font-semibold text-slate-900">对话片段</h3>
+          <div class="mt-2 space-y-2 text-sm text-slate-700">
+            {narrative.dialogue.map((line) => (
+              <p>{line}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">今天你将完成</h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700">
+          {plan.chapterOverview.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">核心概念详解</h2>
+        <div class="mt-4 space-y-4">
+          {plan.concepts.map((c) => (
+            <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <h3 class="font-semibold text-slate-900">{c.title}</h3>
+              <p class="mt-2 text-sm text-slate-700 leading-relaxed">{c.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">知识卡片</h2>
+        <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {story.cards.map((card) => (
+            <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <h3 class="font-semibold text-slate-900">{card.term}</h3>
+              <p class="mt-2 text-sm text-slate-700">{card.explanation}</p>
+              <p class="mt-2 text-xs text-slate-500">为什么重要：{card.whyItMatters}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">一个典型工作流示例</h2>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="border-b border-slate-200">
+                <th class="py-2 pr-3 font-semibold text-slate-900">时间</th>
+                <th class="py-2 pr-3 font-semibold text-slate-900">动作</th>
+                <th class="py-2 font-semibold text-slate-900">结果</th>
+              </tr>
+            </thead>
+            <tbody>
+              {plan.timeline.map((t) => (
+                <tr class="border-b border-slate-100">
+                  <td class="py-2 pr-3 text-slate-600">{t.time}</td>
+                  <td class="py-2 pr-3 text-slate-700">{t.event}</td>
+                  <td class="py-2 text-slate-700">{t.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">实操步骤</h2>
+        <div class="mt-4 space-y-4">
+          {plan.steps.map((step, idx) => (
+            <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <h3 class="font-semibold text-slate-900">步骤 {idx + 1}：{step.title}</h3>
+              <p class="mt-2 text-sm text-slate-700 leading-relaxed">{step.detail}</p>
+              {step.command && (
+                <pre class="mt-3 text-xs sm:text-sm overflow-x-auto rounded-lg bg-slate-900 text-emerald-300 p-3"><code>{step.command}</code></pre>
+              )}
+              <p class="mt-3 text-sm text-slate-600"><span class="font-semibold text-slate-800">完成判定：</span>{step.verify}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">可复制 Prompt 模板</h2>
+        <pre class="mt-4 text-xs sm:text-sm overflow-x-auto rounded-lg bg-slate-900 text-emerald-300 p-3"><code>{plan.promptTemplate}</code></pre>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">今日交付物</h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700">
+          {plan.deliverables.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">常见误区</h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700">
+          {plan.pitfalls.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">验收清单</h2>
+        <ul class="mt-4 space-y-2 text-slate-700">
+          {plan.checklist.map((item) => (
+            <li class="flex items-start gap-2"><span class="mt-0.5 text-green-600">✓</span><span>{item}</span></li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">FAQ</h2>
+        <div class="mt-4 space-y-4">
+          {plan.faq.map((qa) => (
+            <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <h3 class="font-semibold text-slate-900">Q：{qa.q}</h3>
+              <p class="mt-2 text-sm text-slate-700 leading-relaxed">A：{qa.a}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-slate-900">参考资料</h2>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          {plan.references.map((ref) => (
+            <a href={ref.url} class="block rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:border-blue-300 transition px-4 py-3" {...(ref.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+              <h3 class="font-semibold text-slate-900">{ref.name}</h3>
+              <p class="text-sm text-blue-600 mt-1">查看资源 →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-gradient-to-r from-slate-900 to-blue-900 rounded-2xl p-6 sm:p-8 text-white">
+        <h2 class="text-2xl font-bold">明日预告</h2>
+        <p class="mt-3 text-blue-100 leading-relaxed">{plan.preview}</p>
+        <p class="mt-4 text-sm text-blue-200">🐾 旁白：{narrative.reflection}</p>
+      </section>
+
+      <section class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between">
+        {plan.day > 1 ? (
+          <a href={`/day/${plan.day - 1}/`} class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 font-semibold">← 上一天</a>
+        ) : (
+          <a href="/#learning-path" class="inline-flex items-center justify-center px-5 py-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 font-semibold">← 返回学习路径</a>
+        )}
+        {plan.day < 7 ? (
+          <a href={`/day/${plan.day + 1}/`} class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold">下一天 →</a>
+        ) : (
+          <a href="/zh/resources/" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold">进入资源聚合页 →</a>
+        )}
+      </section>
+    </main>
+
+    <SiteFooter />
+  </body>
+</html>

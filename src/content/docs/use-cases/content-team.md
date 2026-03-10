@@ -21,7 +21,7 @@ head:
   - tag: meta
     attrs:
       property: og:image
-      content: https://aiopenclaw.app/icon.svg
+      content: https://aiopenclaw.app/images/ai-openclaw-logo.png
 ---
 # 内容团队自动化模板
 

@@ -9,11 +9,13 @@ import SiteFooter from '../components/SiteFooter.astro';
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>awesome openclaw | ai openclaw 教程、技能与资源导航中心</title>
 <meta name="description" content="awesome openclaw 是面向 ai openclaw 的中文教程与资源导航站，覆盖安装、模型、技能、自动化、安全与成本优化，提供7天学习路径与精选资源，帮助你快速落地并稳定运行。适合个人与团队从零搭建到长期运营，包含实践清单、风险提示与社区贡献入口，全站持续更新，欢迎收藏分享。"/>
+<link rel="icon" type="image/png" href="/images/ai-openclaw-logo.png"/>
+<link rel="apple-touch-icon" href="/images/ai-openclaw-logo.png"/>
 <link rel="canonical" href="https://aiopenclaw.app/"/>
 <meta property="og:title" content="awesome openclaw | ai openclaw 教程、技能与资源导航中心"/>
 <meta property="og:url" content="https://aiopenclaw.app/"/>
 <meta property="og:description" content="awesome openclaw 是面向 ai openclaw 的中文教程与资源导航站，覆盖安装、模型、技能、自动化、安全与成本优化，提供7天学习路径与精选资源，帮助你快速落地并稳定运行。适合个人与团队从零搭建到长期运营，包含实践清单、风险提示与社区贡献入口，全站持续更新，欢迎收藏分享。"/>
-<meta property="og:image" content="https://aiopenclaw.app/icon.svg"/>
+<meta property="og:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png"/>
 <script type="application/ld+json" is:inline>
 {
   "@context": "https://schema.org",
@@ -92,7 +94,7 @@ import SiteFooter from '../components/SiteFooter.astro';
             opacity: 0.45;
             pointer-events: none;
         }
-        .hero-100-top {
+        :global(.hero-100-top) {
             height: 74px;
             border-bottom: 1px solid rgba(151, 189, 255, 0.24);
             background: linear-gradient(180deg, rgba(14, 38, 82, 0.8), rgba(9, 25, 56, 0.56));
@@ -103,25 +105,25 @@ import SiteFooter from '../components/SiteFooter.astro';
             position: relative;
             z-index: 2;
         }
-        .hero-100-brand {
+        :global(.hero-100-brand) {
             font-size: 1.85rem;
             font-weight: 800;
             color: #f5fbff;
         }
-        .hero-100-nav {
+        :global(.hero-100-nav) {
             display: flex;
             gap: 2rem;
-            color: #dce8ff;
+            color: #eef5ff;
             font-size: 1.05rem;
             font-weight: 600;
         }
-        .hero-100-nav a { color: inherit; text-decoration: none; }
-        .hero-100-nav .active {
+        :global(.hero-100-nav a) { color: inherit; text-decoration: none; }
+        :global(.hero-100-nav .active) {
             color: #fff;
             border-bottom: 2px solid #fff;
             padding-bottom: 10px;
         }
-        .hero-100-gh {
+        :global(.hero-100-gh) {
             width: 44px;
             height: 44px;
             border-radius: 9999px;
@@ -240,7 +242,33 @@ import SiteFooter from '../components/SiteFooter.astro';
             line-height: 1;
         }
         @media (max-width: 900px) {
-            .hero-100-nav { display: none; }
+            :global(.hero-100-top) {
+                height: auto;
+                padding: 10px 14px;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                align-items: center;
+                row-gap: 10px;
+            }
+            :global(.hero-100-brand) {
+                font-size: 1.35rem;
+                line-height: 1.1;
+            }
+            :global(.hero-100-nav) {
+                grid-column: 1 / -1;
+                gap: 1rem;
+                font-size: 0.95rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: none;
+                padding-bottom: 2px;
+            }
+            :global(.hero-100-nav::-webkit-scrollbar) { display: none; }
+            :global(.hero-100-gh) {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
             .hero-100-main { padding-top: 6vh; }
             .hero-100-stats {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -257,7 +285,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 <!-- Hero Section -->
 <section class="relative w-full p-0">
   <div class="hero-100">
-    <SiteHeader active="resources" />
+    <SiteHeader />
     <div class="hero-100-main">
       <div class="hero-badge">🟢 开源免费 · 收录 379+ 篇教程资源</div>
       <h1>awesome <span class="accent">openclaw</span></h1>
@@ -317,12 +345,13 @@ import SiteFooter from '../components/SiteFooter.astro';
     <h2 class="text-4xl font-extrabold text-center text-slate-900 mb-4">7天学习路径</h2>
     <p class="text-center text-slate-600 mb-10">从入门到进阶，每天一个主题，循序渐进掌握 OpenClaw 的核心能力。</p>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 1</div><h3 class="text-lg font-bold mt-1">👋 初识 OpenClaw</h3><p class="text-sm text-slate-600 mt-2">了解 AI 私人助理的真正含义，以及 OpenClaw 能为你做什么。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
-      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 2</div><h3 class="text-lg font-bold mt-1">💬 深入对话</h3><p class="text-sm text-slate-600 mt-2">掌握与 AI 助理对话的技巧，让沟通更高效、更自然。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
-      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 3</div><h3 class="text-lg font-bold mt-1">📁 文件与代码</h3><p class="text-sm text-slate-600 mt-2">让 AI 助理帮你处理文件、写代码、执行脚本。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
-      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 4</div><h3 class="text-lg font-bold mt-1">🌐 网络能力</h3><p class="text-sm text-slate-600 mt-2">搜索、抓取、API 调用，让 AI 助理连接互联网。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
-      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 5</div><h3 class="text-lg font-bold mt-1">🧩 技能扩展</h3><p class="text-sm text-slate-600 mt-2">安装社区技能，让 AI 助理学会更多能力。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
-      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 6</div><h3 class="text-lg font-bold mt-1">⏰ 自动化</h3><p class="text-sm text-slate-600 mt-2">定时任务、心跳检测、主动推送，让系统自主工作。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/1/"><div class="text-sm text-slate-500">DAY 1</div><h3 class="text-lg font-bold mt-1">👋 初识 OpenClaw</h3><p class="text-sm text-slate-600 mt-2">了解 AI 私人助理的真正含义，以及 OpenClaw 能为你做什么。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/2/"><div class="text-sm text-slate-500">DAY 2</div><h3 class="text-lg font-bold mt-1">💬 深入对话</h3><p class="text-sm text-slate-600 mt-2">掌握与 AI 助理对话的技巧，让沟通更高效、更自然。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/3/"><div class="text-sm text-slate-500">DAY 3</div><h3 class="text-lg font-bold mt-1">📁 文件与代码</h3><p class="text-sm text-slate-600 mt-2">让 AI 助理帮你处理文件、写代码、执行脚本。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/4/"><div class="text-sm text-slate-500">DAY 4</div><h3 class="text-lg font-bold mt-1">🌐 网络能力</h3><p class="text-sm text-slate-600 mt-2">搜索、抓取、API 调用，让 AI 助理连接互联网。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/5/"><div class="text-sm text-slate-500">DAY 5</div><h3 class="text-lg font-bold mt-1">🧩 技能扩展</h3><p class="text-sm text-slate-600 mt-2">安装社区技能，让 AI 助理学会更多能力。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/6/"><div class="text-sm text-slate-500">DAY 6</div><h3 class="text-lg font-bold mt-1">⏰ 自动化</h3><p class="text-sm text-slate-600 mt-2">定时任务、心跳检测、主动推送，让系统自主工作。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="/day/7/"><div class="text-sm text-slate-500">DAY 7</div><h3 class="text-lg font-bold mt-1">🔒 安全与运营</h3><p class="text-sm text-slate-600 mt-2">权限隔离、升级回滚与长期运维，完成生产化收尾。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
     </div>
   </div>
 </section>
@@ -437,7 +466,7 @@ import SiteFooter from '../components/SiteFooter.astro';
     </a>
   </div>
   <div class="text-center reveal visible">
-    <a href="/zh/resources" class="group inline-flex items-center gap-2 px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">查看全部 379+ 篇资源<span class="group-hover:translate-x-1 transition-transform duration-300">→</span></a>
+    <a href="/zh/resources/" class="group inline-flex items-center gap-2 px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">查看全部 379+ 篇资源<span class="group-hover:translate-x-1 transition-transform duration-300">→</span></a>
     <p class="text-gray-500 text-sm mt-3">持续更新中 · <a href="https://github.com/mengjian-github/openclaw101" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">欢迎提交 PR 补充资源</a></p>
   </div>
 </section>

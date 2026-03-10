@@ -23,7 +23,7 @@ export default defineConfig({
           lang: 'zh-CN',
         },
       },
-      favicon: '/icon.svg',
+      favicon: '/images/ai-openclaw-logo.png',
       social: [
         {
           icon: 'twitter',

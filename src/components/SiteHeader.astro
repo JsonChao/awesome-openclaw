@@ -1,8 +1,19 @@
 ---
-const { active = 'resources' } = Astro.props;
+const { active = '' } = Astro.props;
 const navClass = (key: string) => (active === key ? 'active' : '');
 const pathname = Astro.url.pathname.replace(/\/$/, '');
 const isHome = pathname === '' || pathname === '/';
+const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const currentLang = Astro.url.searchParams.get('lang') ?? 'zh';
+const withLang = (lang: 'en' | 'zh') => {
+  let path = currentPath;
+  if (lang === 'en') {
+    if (path.startsWith('/zh/')) path = path.slice(3);
+    return path === '/' ? '/?lang=en' : `${path}?lang=en`;
+  }
+  if (path === '/resources/') return '/zh/resources/?lang=zh';
+  return `${path}?lang=zh`;
+};
 const labelMap: Record<string, string> = {
   guide: '指南',
   install: '安装',
@@ -28,6 +39,14 @@ const labelMap: Record<string, string> = {
   'founder-assistant': '创业者个人助手',
   zh: '中文',
   resources: '资源',
+  day: '7天学习路径',
+  '1': '第1天',
+  '2': '第2天',
+  '3': '第3天',
+  '4': '第4天',
+  '5': '第5天',
+  '6': '第6天',
+  '7': '第7天',
 };
 const segments = pathname.split('/').filter(Boolean);
 const crumbs = segments.map((seg, idx) => ({
@@ -37,7 +56,7 @@ const crumbs = segments.map((seg, idx) => ({
 ---
 <div class="hero-100-top">
   <div class="flex items-center gap-2.5">
-    <span class="text-[16px]">🪼</span>
+    <img src="/images/ai-openclaw-logo.png" alt="AI OpenClaw Logo" class="hero-100-logo" />
     <span class="hero-100-brand">awesome openclaw</span>
   </div>
   <nav class="hero-100-nav">
@@ -45,12 +64,28 @@ const crumbs = segments.map((seg, idx) => ({
     <a class={navClass('skills')} href="/#skills">技能</a>
     <a class={navClass('resources')} href="/#resources">资源</a>
     <a class={navClass('community')} href="/#community">社区</a>
-    <a class={navClass('all-resources')} href="/zh/resources">全部资源</a>
+    <a class={navClass('all-resources')} href="/zh/resources/">全部资源</a>
   </nav>
   <div class="flex items-center gap-3 text-white">
-    <button class="px-2 py-1 rounded-md border border-white/10 bg-white/10 text-xs">🇺🇸 EN</button>
-    <button class="px-2 py-1 rounded-md border border-white/25 bg-white/20 text-xs font-semibold">🇨🇳 ZH</button>
-    <a class="hero-100-gh" href="https://github.com/JsonChao/awesome-openclaw" aria-label="GitHub">★</a>
+    <a
+      href={withLang('en')}
+      class={`px-2 py-1 rounded-md text-xs transition-colors ${currentLang === 'en' ? 'border border-white/25 bg-white/20 font-semibold' : 'border border-white/10 bg-white/10 hover:bg-white/15'}`}
+      aria-label="Switch to English"
+    >
+      🇺🇸 EN
+    </a>
+    <a
+      href={withLang('zh')}
+      class={`px-2 py-1 rounded-md text-xs transition-colors ${currentLang === 'zh' ? 'border border-white/25 bg-white/20 font-semibold' : 'border border-white/10 bg-white/10 hover:bg-white/15'}`}
+      aria-label="切换到中文"
+    >
+      🇨🇳 ZH
+    </a>
+    <a class="hero-100-gh" href="https://github.com/JsonChao/awesome-openclaw" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.2.8-.6v-2.1c-3.4.7-4.1-1.5-4.1-1.5-.6-1.3-1.3-1.6-1.3-1.6-1.1-.7 0-.7 0-.7 1.2.1 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.6-1.3-5.6-6a4.8 4.8 0 0 1 1.2-3.2c-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1a4.8 4.8 0 0 1 1.2 3.2c0 4.7-2.9 5.7-5.7 6 .4.3.8 1 .8 2v3c0 .4.2.7.8.6A12 12 0 0 0 12 .5Z"></path>
+      </svg>
+    </a>
   </div>
 </div>
 {!isHome && (
@@ -64,3 +99,134 @@ const crumbs = segments.map((seg, idx) => ({
     ))}
   </div>
 )}
+
+<style is:global>
+  .hero-100-top {
+    height: 74px;
+    border-bottom: 1px solid rgba(151, 189, 255, 0.24);
+    background: linear-gradient(180deg, rgba(14, 38, 82, 0.8), rgba(9, 25, 56, 0.56));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-100-brand {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #f5fbff;
+  }
+
+  .hero-100-logo {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
+
+  .hero-100-nav {
+    display: flex;
+    gap: 2rem;
+    color: #eef5ff;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .hero-100-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .hero-100-nav .active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+  }
+
+  .hero-100-gh {
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    border: 1px solid rgba(206, 230, 255, 0.88);
+    box-shadow: 0 0 18px rgba(157, 205, 255, 0.75);
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .oc-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 22px;
+    background: rgba(10, 22, 44, 0.85);
+    border-bottom: 1px solid rgba(151, 189, 255, 0.2);
+    color: #c8d6f4;
+    font-size: 0.9rem;
+  }
+
+  .oc-breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .oc-breadcrumb .sep {
+    opacity: 0.6;
+  }
+
+  @media (max-width: 900px) {
+    .oc-breadcrumb {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-100-nav {
+      gap: 1rem;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .hero-100-nav::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-100-top {
+      padding: 10px 14px;
+      height: auto;
+      gap: 10px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      row-gap: 10px;
+    }
+
+    .hero-100-nav {
+      grid-column: 1 / -1;
+    }
+
+    .hero-100-brand {
+      font-size: 1.35rem;
+    }
+
+    .hero-100-logo {
+      width: 24px;
+      height: 24px;
+    }
+
+    .hero-100-gh {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+  }
+</style>

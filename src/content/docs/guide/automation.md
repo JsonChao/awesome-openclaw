@@ -21,7 +21,7 @@ head:
   - tag: meta
     attrs:
       property: og:image
-      content: https://aiopenclaw.app/icon.svg
+      content: https://aiopenclaw.app/images/ai-openclaw-logo.png
 ---
 # ai openclaw 自动化与工作流
 
