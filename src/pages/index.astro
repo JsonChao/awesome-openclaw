@@ -1,0 +1,869 @@
+---
+import '../styles/tailwind.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>awesome openclaw | ai openclaw 教程、技能与资源导航中心</title>
+<meta name="description" content="awesome openclaw 是面向 ai openclaw 的中文教程与资源导航站，覆盖安装、模型、技能、自动化、安全与成本优化，提供7天学习路径与精选资源，帮助你快速落地并稳定运行。适合个人与团队从零搭建到长期运营，包含实践清单、风险提示与社区贡献入口，全站持续更新，欢迎收藏分享。"/>
+<link rel="canonical" href="https://aiopenclaw.app/"/>
+<meta property="og:title" content="awesome openclaw | ai openclaw 教程、技能与资源导航中心"/>
+<meta property="og:url" content="https://aiopenclaw.app/"/>
+<meta property="og:description" content="awesome openclaw 是面向 ai openclaw 的中文教程与资源导航站，覆盖安装、模型、技能、自动化、安全与成本优化，提供7天学习路径与精选资源，帮助你快速落地并稳定运行。适合个人与团队从零搭建到长期运营，包含实践清单、风险提示与社区贡献入口，全站持续更新，欢迎收藏分享。"/>
+<meta property="og:image" content="https://aiopenclaw.app/icon.svg"/>
+<script type="application/ld+json" is:inline>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "awesome openclaw",
+      "url": "https://aiopenclaw.app/",
+      "sameAs": ["https://x.com/JsonChao", "https://github.com/JsonChao/"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "support@aiopenclaw.app"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "name": "awesome openclaw",
+      "url": "https://aiopenclaw.app/",
+      "publisher": { "@type": "Organization", "name": "awesome openclaw" }
+    },
+    {
+      "@type": "WebPage",
+      "name": "awesome openclaw | ai openclaw 教程、技能与资源导航中心",
+      "url": "https://aiopenclaw.app/",
+      "description": "awesome openclaw 是面向 ai openclaw 的中文教程与资源导航站，覆盖安装、模型、技能、自动化、安全与成本优化，提供7天学习路径与精选资源，帮助你快速落地并稳定运行。适合个人与团队从零搭建到长期运营，包含实践清单、风险提示与社区贡献入口，全站持续更新，欢迎收藏分享。",
+      "isPartOf": { "@type": "WebSite", "name": "awesome openclaw", "url": "https://aiopenclaw.app/" },
+      "publisher": { "@type": "Organization", "name": "awesome openclaw" }
+    }
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glow-border {
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #dbe2ee;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+        }
+        .glow-border:hover {
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 12px 28px rgba(59, 130, 246, 0.16);
+        }
+        .grid-bg {
+            background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #a855f7, #ec5b13);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-100 {
+            min-height: 100svh;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(66, 107, 176, 0.4);
+            background:
+              radial-gradient(760px 520px at 78% 18%, rgba(93, 125, 255, 0.42), transparent 70%),
+              radial-gradient(620px 520px at 88% 75%, rgba(29, 190, 177, 0.2), transparent 70%),
+              linear-gradient(125deg, #071634 0%, #0a234f 45%, #0d2f66 76%, #0a2554 100%);
+            box-shadow: inset 0 -80px 140px rgba(3, 10, 26, 0.5);
+        }
+        .hero-100::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+              radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.15) 0 1px, transparent 1px),
+              linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)),
+              repeating-linear-gradient(150deg, transparent 0 18px, rgba(119, 163, 255, 0.08) 18px 19px);
+            background-size: 180px 180px, auto, auto;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        .hero-100-top {
+            height: 74px;
+            border-bottom: 1px solid rgba(151, 189, 255, 0.24);
+            background: linear-gradient(180deg, rgba(14, 38, 82, 0.8), rgba(9, 25, 56, 0.56));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-100-brand {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #f5fbff;
+        }
+        .hero-100-nav {
+            display: flex;
+            gap: 2rem;
+            color: #dce8ff;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .hero-100-nav a { color: inherit; text-decoration: none; }
+        .hero-100-nav .active {
+            color: #fff;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 10px;
+        }
+        .hero-100-gh {
+            width: 44px;
+            height: 44px;
+            border-radius: 9999px;
+            border: 1px solid rgba(206, 230, 255, 0.88);
+            box-shadow: 0 0 18px rgba(157, 205, 255, 0.75);
+            display: grid;
+            place-items: center;
+            font-size: 1.25rem;
+            background: rgba(255,255,255,0.08);
+        }
+        .hero-100-main {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: calc(100svh - 74px);
+            padding: 8vh 18px 7vh;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero-badge {
+            width: fit-content;
+            margin: 0 auto 24px;
+            border-radius: 9999px;
+            border: 1px solid rgba(164, 198, 255, 0.3);
+            background: rgba(21, 44, 91, 0.52);
+            color: #d5e8ff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 14px;
+        }
+        .hero-100-main h1 {
+            margin: 0;
+            font-size: clamp(3.3rem, 8vw, 6.2rem);
+            line-height: 1.02;
+            color: #f7fbff;
+            font-weight: 800;
+        }
+        .hero-100-main h1 .accent {
+            background: linear-gradient(90deg, #2b8cff, #20d1c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-zh {
+            margin: 16px 0 10px;
+            color: #e9f3ff;
+            font-size: clamp(1.45rem, 2.45vw, 2.15rem);
+            font-weight: 700;
+        }
+        .hero-en {
+            margin: 0;
+            color: #9eb2cd;
+            font-size: clamp(1.05rem, 1.4vw, 1.45rem);
+        }
+        .hero-100-btns {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+        .hero-100-btns a {
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 12px 26px;
+            text-decoration: none;
+            min-height: 54px;
+            border: 1px solid rgba(145, 181, 230, 0.3);
+            color: #eaf3ff;
+            background: rgba(14, 36, 75, 0.4);
+        }
+        .hero-100-btns .primary {
+            background: linear-gradient(145deg, #2f7bff, #2761de);
+            border-color: rgba(127, 165, 255, 0.8);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(45, 108, 255, 0.34);
+        }
+        .hero-100-stats {
+            margin: 64px auto 0;
+            width: min(760px, 94%);
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            position: relative;
+            z-index: 2;
+        }
+        .hero-100-stats > div {
+            text-align: center;
+            border-right: 1px solid rgba(146, 181, 232, 0.3);
+        }
+        .hero-100-stats > div:last-child { border-right: 0; }
+        .hero-100-stats b {
+            display: block;
+            color: #f3f8ff;
+            font-size: clamp(2rem, 3.2vw, 3rem);
+            line-height: 1;
+            font-weight: 800;
+        }
+        .hero-100-stats em {
+            display: block;
+            color: #8ca2bf;
+            font-style: normal;
+            font-size: 1rem;
+            margin-top: 6px;
+        }
+        .hero-down {
+            margin-top: 36px;
+            color: #8da4c1;
+            font-size: 2rem;
+            line-height: 1;
+        }
+        @media (max-width: 900px) {
+            .hero-100-nav { display: none; }
+            .hero-100-main { padding-top: 6vh; }
+            .hero-100-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                row-gap: 16px;
+                margin-top: 34px;
+            }
+            .hero-100-stats > div:nth-child(2) { border-right: 0; }
+        }
+    </style>
+</head>
+<body class="bg-[#d9dde6] font-display text-slate-900 overflow-x-hidden">
+<main class="relative">
+<!-- Grid Background Decor -->
+<!-- Hero Section -->
+<section class="relative w-full p-0">
+  <div class="hero-100">
+    <SiteHeader active="resources" />
+    <div class="hero-100-main">
+      <div class="hero-badge">🟢 开源免费 · 收录 379+ 篇教程资源</div>
+      <h1>awesome <span class="accent">openclaw</span></h1>
+      <div class="hero-zh">从零开始，7天掌握你的 AI 私人助理</div>
+      <p class="hero-en">The open-source guide to building your AI assistant with OpenClaw</p>
+      <div class="hero-100-btns">
+        <a class="primary" href="#learning-path">🚀 开始学习</a>
+        <a href="#resources">📚 浏览资源</a>
+        <a href="https://github.com/JsonChao/awesome-openclaw">🐙 GitHub</a>
+      </div>
+      <div class="hero-100-stats">
+        <div><b>379+</b><em>教程收录</em></div>
+        <div><b>7天</b><em>学习路径</em></div>
+        <div><b>279k+</b><em>GitHub Stars</em></div>
+        <div><b>100%</b><em>开源免费</em></div>
+      </div>
+      <div class="hero-down">↓</div>
+    </div>
+  </div>
+</section>
+<!-- 什么是 OpenClaw -->
+<section class="relative max-w-[1240px] mx-auto px-6 py-16">
+  <h2 class="text-4xl font-extrabold text-center text-slate-900 mb-10">什么是 OpenClaw？</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <article class="glow-border rounded-2xl p-7">
+      <div class="text-4xl mb-4">🧠</div>
+      <h3 class="text-xl font-bold mb-3">全平台接入</h3>
+      <p class="text-slate-600 leading-relaxed">Telegram、Discord、WhatsApp、Signal 等多平台无缝连接，随时随地与你的 AI 助理对话。</p>
+    </article>
+    <article class="glow-border rounded-2xl p-7">
+      <div class="text-4xl mb-4">⚡</div>
+      <h3 class="text-xl font-bold mb-3">技能扩展</h3>
+      <p class="text-slate-600 leading-relaxed">5494+ 社区技能，从天气查询到代码生成，一键安装即用，持续提升你的效率上限。</p>
+    </article>
+    <article class="glow-border rounded-2xl p-7">
+      <div class="text-4xl mb-4">🔒</div>
+      <h3 class="text-xl font-bold mb-3">数据自主</h3>
+      <p class="text-slate-600 leading-relaxed">完全自托管，数据存储在你自己的服务器，隐私可控、安全边界清晰、长期可运营。</p>
+    </article>
+  </div>
+  <div class="mt-10 grid md:grid-cols-3 gap-6">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+      <img src="/images/unsplash-abstract.jpg" alt="Abstract tech background" class="w-full h-56 object-cover" loading="lazy" />
+    </div>
+    <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+      <img src="/images/unsplash-workspace.jpg" alt="AI workspace setup" class="w-full h-56 object-cover" loading="lazy" />
+    </div>
+    <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+      <img src="/images/unsplash-community.jpg" alt="Community collaboration" class="w-full h-56 object-cover" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- 7天学习路径 -->
+<section id="learning-path" class="bg-[#f8fafc] border-y border-slate-200 py-16">
+  <div class="max-w-[1240px] mx-auto px-6">
+    <h2 class="text-4xl font-extrabold text-center text-slate-900 mb-4">7天学习路径</h2>
+    <p class="text-center text-slate-600 mb-10">从入门到进阶，每天一个主题，循序渐进掌握 OpenClaw 的核心能力。</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 1</div><h3 class="text-lg font-bold mt-1">👋 初识 OpenClaw</h3><p class="text-sm text-slate-600 mt-2">了解 AI 私人助理的真正含义，以及 OpenClaw 能为你做什么。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 2</div><h3 class="text-lg font-bold mt-1">💬 深入对话</h3><p class="text-sm text-slate-600 mt-2">掌握与 AI 助理对话的技巧，让沟通更高效、更自然。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 3</div><h3 class="text-lg font-bold mt-1">📁 文件与代码</h3><p class="text-sm text-slate-600 mt-2">让 AI 助理帮你处理文件、写代码、执行脚本。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 4</div><h3 class="text-lg font-bold mt-1">🌐 网络能力</h3><p class="text-sm text-slate-600 mt-2">搜索、抓取、API 调用，让 AI 助理连接互联网。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 5</div><h3 class="text-lg font-bold mt-1">🧩 技能扩展</h3><p class="text-sm text-slate-600 mt-2">安装社区技能，让 AI 助理学会更多能力。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+      <a class="glow-border rounded-xl p-5 block hover:-translate-y-0.5 transition" href="#"><div class="text-sm text-slate-500">DAY 6</div><h3 class="text-lg font-bold mt-1">⏰ 自动化</h3><p class="text-sm text-slate-600 mt-2">定时任务、心跳检测、主动推送，让系统自主工作。</p><span class="text-sm text-orange-500 font-semibold mt-3 inline-block">查看详情 →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 全网优质资源聚合 -->
+<section id="resources" class="max-w-6xl mx-auto px-4 py-16" style="height: auto !important;">
+  <div class="text-center mb-6 reveal visible">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">📚 精选收录</div>
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">全网优质资源聚合</h2>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">从阿里云、腾讯云到 DigitalOcean，从 B站到 Codecademy —— 一站式获取 OpenClaw 最佳教程。</p>
+  </div>
+  <div class="reveal mb-8 mx-auto max-w-3xl visible">
+    <div class="flex items-start gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm">
+      <span class="text-lg mt-0.5">⚠️</span>
+      <div>
+        <span class="font-semibold">安全提醒：</span>近期发现有恶意 Skills 通过 ClawHub 分发，窃取用户数据。安装第三方 Skill 前请务必检查源码，优先使用官方或社区审核的 Skills。
+        <a href="https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html" target="_blank" rel="noopener noreferrer" class="ml-1 text-amber-700 underline hover:text-amber-900">详情 ↗</a>
+      </div>
+    </div>
+  </div>
+  <div class="reveal flex flex-wrap items-center justify-center gap-4 md:gap-10 mb-12 visible">
+    <div class="flex items-center gap-2"><span class="text-2xl font-bold text-blue-600">379+</span><span class="text-sm text-gray-500">篇教程</span></div>
+    <div class="w-px h-5 bg-gray-200"></div>
+    <div class="flex items-center gap-2"><span class="text-2xl font-bold text-green-600">48</span><span class="text-sm text-gray-500">中文资源</span></div>
+    <div class="w-px h-5 bg-gray-200"></div>
+    <div class="flex items-center gap-2"><span class="text-2xl font-bold text-purple-600">331</span><span class="text-sm text-gray-500">英文资源</span></div>
+    <div class="w-px h-5 bg-gray-200"></div>
+    <div class="flex items-center gap-2"><span class="text-2xl font-bold text-orange-600">9</span><span class="text-sm text-gray-500">大分类</span></div>
+  </div>
+  <div class="reveal flex flex-wrap items-center justify-center gap-4 mb-12 text-sm text-gray-400 visible">
+    收录来源：
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">Alibaba Cloud</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">Tencent Cloud</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">DigitalOcean</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">Hostinger</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">IBM</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">Codecademy</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">Bilibili</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">CSDN</span>
+    <span class="px-3 py-1 bg-white rounded-full border border-gray-100 text-gray-500 text-xs">Reddit</span>
+  </div>
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mb-12">
+    <a href="https://docs.openclaw.ai" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:0ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600">EN</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-blue-200 bg-blue-50 text-blue-700">📖 官方资源</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">OpenClaw 官方文档</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">完整的 API 参考、配置指南和架构说明</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">OpenClaw</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:60ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600">EN</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-blue-200 bg-blue-50 text-blue-700">📖 官方资源</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">GitHub — openclaw/openclaw</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">源代码、Issue 跟踪和社区贡献指南 (279k+ ⭐)</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">GitHub</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://clawhub.com" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:120ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600">EN</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-blue-200 bg-blue-50 text-blue-700">📖 官方资源</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">ClawHub 技能市场</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">发现、安装和分享 AI 技能插件</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">ClawHub</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:180ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-red-200 bg-red-50 text-red-600">中文</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-sky-200 bg-sky-50 text-sky-700">☁️ 云平台部署</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">阿里云 — 部署 OpenClaw 构建钉钉 AI 助理</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">轻量应用服务器一键部署，可视化配置面板接入钉钉</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">阿里云</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://cloud.tencent.com/developer/article/2625073" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:240ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-red-200 bg-red-50 text-red-600">中文</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-sky-200 bg-sky-50 text-sky-700">☁️ 云平台部署</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">腾讯云 — OpenClaw 接入飞书保姆级教程</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">Lighthouse 一键部署 + 飞书机器人全流程配置</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">腾讯云</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:300ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600">EN</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-sky-200 bg-sky-50 text-sky-700">☁️ 云平台部署</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">DigitalOcean — One-Click Deploy OpenClaw</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">Learn how to deploy OpenClaw using DigitalOcean's 1-Click solution</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">DigitalOcean</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://apifox.com/apiskills/openclaw-installation-and-usage-guide/" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:360ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-red-200 bg-red-50 text-red-600">中文</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-green-200 bg-green-50 text-green-700">🏁 入门部署</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">OpenClaw 下载安装使用 — 详细图文教程</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">系统要求、多种安装方式对比、常见问题排查、Web/终端两种界面入门</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">Apifox</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://www.cnblogs.com/catchadmin/p/19556552" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:420ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-red-200 bg-red-50 text-red-600">中文</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-purple-200 bg-purple-50 text-purple-700">📱 平台接入</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">保姆级飞书对接教程 — 手把手搭建 AI 助手</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">Linux 下安装 OpenClaw 并对接飞书机器人，打造专属智能助理</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">博客园</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://docs.openclaw.ai/tools/clawhub" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:480ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-blue-200 bg-blue-50 text-blue-600">EN</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-orange-200 bg-orange-50 text-orange-700">🧩 技能开发</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">ClawHub 技能开发文档</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">如何创建、发布和管理自定义技能</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">OpenClaw Docs</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+    <a href="https://www.bilibili.com/video/BV1kH6nBFEPq/" target="_blank" rel="noopener noreferrer" class="reveal card-hover group block bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 hover:border-gray-200 relative visible" style="transition-delay:540ms">
+      <div class="absolute top-3 right-3 sm:top-4 sm:right-4"><span class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border border-red-200 bg-red-50 text-red-600">中文</span></div>
+      <span class="inline-flex items-center gap-1 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full border mb-2 sm:mb-3 border-red-200 bg-red-50 text-red-700">📹 视频教程</span>
+      <h3 class="text-sm sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-2 group-hover:text-blue-600 transition-colors pr-8 sm:pr-10 line-clamp-2">OpenClaw 海量全玩法攻略 — 国内网络使用 + 本地部署</h3>
+      <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-2 sm:mb-3 line-clamp-2">B站详细视频教程，涵盖所有主要功能和配置</p>
+      <div class="flex items-center justify-between"><span class="text-[10px] sm:text-xs text-gray-400">Bilibili</span><span class="text-blue-600 text-xs sm:text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">访问 ↗</span></div>
+    </a>
+  </div>
+  <div class="text-center reveal visible">
+    <a href="/zh/resources" class="group inline-flex items-center gap-2 px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">查看全部 379+ 篇资源<span class="group-hover:translate-x-1 transition-transform duration-300">→</span></a>
+    <p class="text-gray-500 text-sm mt-3">持续更新中 · <a href="https://github.com/mengjian-github/openclaw101" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">欢迎提交 PR 补充资源</a></p>
+  </div>
+</section>
+
+<!-- 社区与实战课 -->
+<section id="community" class="max-w-[1240px] mx-auto px-6 pb-20">
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="rounded-2xl p-7 text-white bg-gradient-to-br from-orange-400 via-pink-500 to-blue-500">
+      <h3 class="text-2xl font-extrabold">OpenClaw 实践者社区</h3>
+      <p class="mt-3 text-white/90">回复「OpenClaw」自动拉群，500+ AI 探索者每周直播分享。</p>
+      <button class="mt-5 px-5 py-2.5 rounded-full bg-white text-slate-900 font-bold">加入社区</button>
+    </div>
+    <div class="rounded-2xl p-7 text-slate-900 bg-gradient-to-br from-yellow-300 via-orange-300 to-pink-300 border border-orange-200">
+      <h3 class="text-2xl font-extrabold">AI 私人助理实战课</h3>
+      <p class="mt-3 text-slate-700">21 节视频课程，手把手带你从零部署专属 AI 助理，打通自动化工作流。</p>
+      <button class="mt-5 px-5 py-2.5 rounded-full bg-slate-900 text-white font-bold">了解课程</button>
+    </div>
+  </div>
+</section>
+
+<!-- 精选技能推荐 -->
+<section id="skills" class="bg-[#f8fafc] border-y border-slate-200 py-16">
+  <div class="max-w-7xl mx-auto px-4" style="height: auto !important;">
+    <div class="text-center mb-8 sm:mb-12 reveal visible">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-accent/10 rounded-full mb-4">
+        <span class="text-2xl">🚀</span>
+        <span class="text-sm font-semibold text-primary">5494+ 社区技能</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">精选技能推荐</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">来自 awesome-openclaw-skills 的精选技能，涵盖 31 个分类。一键安装，即刻增强你的 AI 助理能力。</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 mb-12">
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:0ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🌐</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">网页 &amp; 前端</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">46</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">frontend-design</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">高质量 UI</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">nextjs-expert</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Next.js 应用</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">ui-audit</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">UI 自动审计</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">remotion-server</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">视频渲染</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:50ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🤖</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">编程 Agent</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">55</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">coding-agent</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Claude/Codex</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">opencode-acp-control</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">OpenCode</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">claude-team</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">多 Agent 协作</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">skill-creator</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">创建技能</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:100ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">☁️</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">DevOps &amp; 云</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">144</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">cloudflare</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Workers/KV/D1</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">docker-essentials</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">容器管理</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">kubernetes</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">K8s 集群</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">coolify</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">自托管部署</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:150ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🔍</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">搜索 &amp; 研究</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">148</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">exa-plus</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">神经网络搜索</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">deepwiki</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">GitHub 文档</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">technews</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">科技资讯</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">read-github</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">仓库检索</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:200ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📈</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">营销 &amp; 销售</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">94</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">seo-audit</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">SEO 分析</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">social-content</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">社交媒体</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">email-sequence</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">邮件营销</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">copywriting</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">文案优化</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:250ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🧠</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">AI &amp; 大模型</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">159</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">kimi-integration</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Kimi 集成</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">chatgpt-apps</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">ChatGPT 应用</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">chromadb-memory</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">向量记忆</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">agentmemory</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">云端记忆</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:300ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏠</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">智能家居</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">50</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">homeassistant</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">家居自动化</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">adguard</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">DNS 过滤</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">emporia-energy</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">能耗监控</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">trmnl</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">墨水屏</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:350ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🗣️</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">语音 &amp; 音频</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">44</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">aliyun-tts</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">阿里云语音</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">whisper</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">语音转文字</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">azure-ai-voicelive</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">实时语音</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">speech-to-text</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">音频转录</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:400ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">💬</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">通讯集成</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">58</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">slack</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Slack 控制</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">discord</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Discord 机器人</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">telegram</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Telegram API</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">smtp-send</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">发送邮件</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:450ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏋️</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">健康 &amp; 健身</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">35</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">workout-logger</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">运动记录</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">fasting-tracker</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">断食追踪</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">weight-loss</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">体重管理</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">habit-tracker</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">习惯养成</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:500ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📝</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">笔记 &amp; 知识</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">61</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">logseq</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Logseq 集成</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">obsidian</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Obsidian 库</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">notion</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">Notion API</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">newsletter-digest</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">文章摘要</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal card-hover bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100 hover:border-primary/20 transition-all duration-300 visible" style="transition-delay:550ms">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎮</span>
+            <h3 class="text-sm sm:text-base font-bold text-gray-900">游戏</h3>
+          </div>
+          <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">7</span>
+        </div>
+        <div class="space-y-1.5">
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">dnd</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">D&amp;D 工具包</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">moltpet</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">AI 宠物</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">bot-bowl-party</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">机器人派对</span>
+          </a>
+          <a href="https://github.com/openclaw/skills/tree/main/skills" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-2.5 py-1.5 bg-white text-xs rounded-lg border border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 group">
+            <span class="font-mono text-gray-700 group-hover:text-primary truncate">winamp</span>
+            <span class="text-gray-400 text-[10px] ml-2 hidden sm:inline">音乐播放器</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="reveal bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-8 visible">
+      <div class="grid grid-cols-2 gap-3 sm:gap-4 text-center">
+        <div class="bg-white/60 rounded-lg p-3 sm:p-4">
+          <div class="text-xl sm:text-3xl font-bold text-primary">5494+</div>
+          <div class="text-[10px] sm:text-sm text-gray-500">总技能数</div>
+        </div>
+        <div class="bg-white/60 rounded-lg p-3 sm:p-4">
+          <div class="text-xl sm:text-3xl font-bold text-accent">31</div>
+          <div class="text-[10px] sm:text-sm text-gray-500">分类数</div>
+        </div>
+        <div class="bg-white/60 rounded-lg p-3 sm:p-4">
+          <div class="text-xl sm:text-3xl font-bold text-orange-500">159</div>
+          <div class="text-[10px] sm:text-sm text-gray-500">AI &amp; LLM</div>
+        </div>
+        <div class="bg-white/60 rounded-lg p-3 sm:p-4">
+          <div class="text-xl sm:text-3xl font-bold text-purple-500">148</div>
+          <div class="text-[10px] sm:text-sm text-gray-500">搜索研究</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal bg-gray-900 rounded-xl p-4 sm:p-6 mb-8 visible">
+      <div class="flex flex-col gap-3 sm:gap-4">
+        <div>
+          <h4 class="text-white font-semibold mb-1">一键安装任意技能</h4>
+          <p class="text-gray-400 text-sm">使用 ClawHub CLI 快速安装</p>
+        </div>
+        <div class="overflow-x-auto">
+          <code class="block bg-gray-800 text-green-400 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-mono">npx clawhub@latest install &lt;skill-name&gt;</code>
+        </div>
+      </div>
+    </div>
+    <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 visible">
+      <a href="https://github.com/VoltAgent/awesome-openclaw-skills" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+        </svg>
+        浏览完整列表
+        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+      </a>
+      <a href="https://clawhub.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-emerald-600 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5">
+        访问 ClawHub
+        <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 社区与贡献 -->
+<section class="max-w-[1240px] mx-auto px-6 py-16">
+  <h2 class="text-4xl font-extrabold text-center text-slate-900 mb-4">社区与贡献</h2>
+  <p class="text-center text-slate-600 mb-10">从提交教程到贡献技能，我们欢迎每一位实践者。</p>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="glow-border rounded-2xl p-7">
+      <h3 class="text-xl font-bold">贡献教程</h3>
+      <p class="text-slate-600 mt-2">将你的实践经验整理成教程，帮助更多新人入门。</p>
+      <a class="text-orange-500 font-semibold inline-block mt-4" href="#">查看贡献指南 →</a>
+    </div>
+    <div class="glow-border rounded-2xl p-7">
+      <h3 class="text-xl font-bold">提交技能</h3>
+      <p class="text-slate-600 mt-2">将你的工具封装成技能，进入全网精选技能库。</p>
+      <a class="text-orange-500 font-semibold inline-block mt-4" href="#">了解技能规范 →</a>
+    </div>
+    <div class="glow-border rounded-2xl p-7">
+      <h3 class="text-xl font-bold">加入社区</h3>
+      <p class="text-slate-600 mt-2">每周线上分享，线下活动与协作项目持续开放。</p>
+      <a class="text-orange-500 font-semibold inline-block mt-4" href="#">申请加入 →</a>
+    </div>
+  </div>
+</section>
+</main>
+<SiteFooter />
+</body></html>

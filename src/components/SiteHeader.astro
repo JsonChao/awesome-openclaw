@@ -1,0 +1,66 @@
+---
+const { active = 'resources' } = Astro.props;
+const navClass = (key: string) => (active === key ? 'active' : '');
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+const isHome = pathname === '' || pathname === '/';
+const labelMap: Record<string, string> = {
+  guide: '指南',
+  install: '安装',
+  local: '本地安装',
+  cloud: '云端部署',
+  cost: '成本规划',
+  models: '模型与推理策略',
+  integrations: '消息平台接入',
+  skills: '技能市场与自定义技能',
+  automation: '自动化与工作流',
+  architecture: '架构与安全',
+  'system-design': '系统架构',
+  security: '安全总览',
+  checklist: '安全检查清单',
+  faq: 'FAQ',
+  'what-is-ai-openclaw': '什么是 ai openclaw',
+  'how-to-start-ai-openclaw': '如何开始',
+  'how-much-does-it-cost': '成本是多少',
+  'is-it-safe': '是否安全',
+  'how-to-run-24x7': '如何 24x7 运行',
+  'use-cases': '场景模板',
+  'content-team': '内容团队自动化',
+  'founder-assistant': '创业者个人助手',
+  zh: '中文',
+  resources: '资源',
+};
+const segments = pathname.split('/').filter(Boolean);
+const crumbs = segments.map((seg, idx) => ({
+  label: labelMap[seg] ?? decodeURIComponent(seg).replace(/-/g, ' '),
+  href: '/' + segments.slice(0, idx + 1).join('/'),
+}));
+---
+<div class="hero-100-top">
+  <div class="flex items-center gap-2.5">
+    <span class="text-[16px]">🪼</span>
+    <span class="hero-100-brand">awesome openclaw</span>
+  </div>
+  <nav class="hero-100-nav">
+    <a class={navClass('learning')} href="/#learning-path">学习</a>
+    <a class={navClass('skills')} href="/#skills">技能</a>
+    <a class={navClass('resources')} href="/#resources">资源</a>
+    <a class={navClass('community')} href="/#community">社区</a>
+    <a class={navClass('all-resources')} href="/zh/resources">全部资源</a>
+  </nav>
+  <div class="flex items-center gap-3 text-white">
+    <button class="px-2 py-1 rounded-md border border-white/10 bg-white/10 text-xs">🇺🇸 EN</button>
+    <button class="px-2 py-1 rounded-md border border-white/25 bg-white/20 text-xs font-semibold">🇨🇳 ZH</button>
+    <a class="hero-100-gh" href="https://github.com/JsonChao/awesome-openclaw" aria-label="GitHub">★</a>
+  </div>
+</div>
+{!isHome && (
+  <div class="oc-breadcrumb">
+    <a href="/">首页</a>
+    {crumbs.map((crumb) => (
+      <>
+        <span class="sep">/</span>
+        <a href={crumb.href}>{crumb.label}</a>
+      </>
+    ))}
+  </div>
+)}

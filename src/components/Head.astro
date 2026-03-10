@@ -1,0 +1,58 @@
+---
+const starlightRoute = (Astro.locals as any).starlightRoute ?? { head: [], title: '', description: '' };
+const { head, title, description } = starlightRoute;
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://aiopenclaw.app';
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const url = `${site}${path}`;
+const isHome = path === '/';
+const pageTitle = title ?? 'awesome openclaw';
+const pageDescription = description ?? 'awesome openclaw 是面向 ai openclaw 的中文教程与资源站。';
+const org = {
+  '@type': 'Organization',
+  name: 'awesome openclaw',
+  url: site,
+  sameAs: ['https://x.com/JsonChao', 'https://github.com/JsonChao/'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    email: 'support@aiopenclaw.app',
+  },
+};
+const webSite = {
+  '@type': 'WebSite',
+  name: 'awesome openclaw',
+  url: site + '/',
+  publisher: org,
+};
+const webPage = {
+  '@type': 'WebPage',
+  name: pageTitle,
+  url,
+  description: pageDescription,
+  isPartOf: webSite,
+  publisher: org,
+};
+const breadcrumb = isHome
+  ? null
+  : {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: '首页',
+          item: site + '/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: pageTitle,
+          item: url,
+        },
+      ],
+    };
+const jsonLd = [webSite, org, webPage, ...(breadcrumb ? [breadcrumb] : [])];
+---
+
+{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>

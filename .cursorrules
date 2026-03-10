@@ -1,0 +1,35 @@
+# Project: awesome-openclaw (Astro + Starlight)
+# Goal: SEO-optimized Chinese tutorial site for "ai openclaw" with a custom homepage
+
+## Tech Stack
+- Framework: Astro + @astrojs/starlight
+- Styling: Tailwind + custom CSS in `src/styles/custom.css`
+- Pages: `src/pages/index.astro` (custom landing), docs in `src/content/docs/*`
+
+## Conventions
+- Use `rg` for search. Prefer `apply_patch` for edits.
+- Avoid Python for file edits; use shell or Node if needed.
+- Keep typography and layout consistent with existing hero/home styles.
+- Do not remove the hero design or replace its structure unless explicitly asked.
+
+## SEO Requirements
+- Meta Title length: 40-60 characters per page.
+- Meta Description length: 140-160 characters per page.
+- Each page has exactly one `# H1` and a logical H2/H3 hierarchy.
+- Canonical URLs must be set to `https://aiopenclaw.app/<path>/` (always trailing slash).
+- Add social meta tags on all pages:
+  - `og:title`, `og:url`, `og:description`, `og:image` (use site icon)
+
+## Reusable Layout
+- Global header/footer are provided by `src/components/SiteHeader.astro` and `src/components/SiteFooter.astro`.
+- Starlight header/footer are overridden via `astro.config.mjs`.
+- When editing navigation/footer links, update the shared components, not individual pages.
+
+## Images
+- Store site images in `public/images/`.
+- For decorative assets, prefer lightweight JPG and set `loading="lazy"`.
+
+## Content
+- Keep content in Chinese, clear and instructional.
+- Maintain keyword focus on "ai openclaw" without stuffing.
+- If adding new pages, update sidebar in `astro.config.mjs`.
