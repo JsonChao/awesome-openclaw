@@ -12,13 +12,13 @@ const withLang = (lang: 'en' | 'zh') => {
   let path = currentPath;
   if (lang === 'en') {
     if (path === '/zh/') return '/';
-    if (path === '/zh/resources/') return '/zh/resources/?lang=en';
+    if (path === '/zh/resources/') return '/resources/';
     if (path.startsWith('/zh/')) path = path.slice(3);
     return path === '/' ? '/' : `${path}?lang=en`;
   }
   if (path === '/') return '/zh/';
-  if (path === '/zh/resources/') return '/zh/resources/?lang=zh';
-  if (path === '/resources/') return '/zh/resources/?lang=zh';
+  if (path === '/zh/resources/') return '/zh/resources/';
+  if (path === '/resources/') return '/zh/resources/';
   if (path.startsWith('/zh/')) return path;
   return `${path}?lang=zh`;
 };
