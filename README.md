@@ -78,6 +78,21 @@ public/
 - Pagefind（站内搜索）
 - Cloudflare Pages / Vercel（可选部署）
 
+## ☁️ Cloudflare Pages 部署（无报错版）
+这个项目是**静态站**，不需要在 CI 里执行 `astro add cloudflare`。
+
+Cloudflare Pages 推荐配置：
+- Framework preset: `None`
+- Build command: `npm run build:cf`
+- Build output directory: `dist`
+- Node.js version: `20`（或更高）
+
+如果你用 Wrangler 手动部署：
+```bash
+npm run build:cf
+npm run deploy:cf
+```
+
 ## 📄 许可证
 MIT License — 自由使用、修改和分发。
 
