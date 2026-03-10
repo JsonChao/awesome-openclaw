@@ -4,49 +4,60 @@ const navClass = (key: string) => (active === key ? 'active' : '');
 const pathname = Astro.url.pathname.replace(/\/$/, '');
 const isHome = pathname === '' || pathname === '/';
 const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
-const currentLang = Astro.url.searchParams.get('lang') ?? 'zh';
+const currentLang = Astro.url.searchParams.get('lang') === 'zh' ? 'zh' : 'en';
 const withLang = (lang: 'en' | 'zh') => {
   let path = currentPath;
   if (lang === 'en') {
+    if (path === '/zh/resources/') return '/zh/resources/?lang=en';
     if (path.startsWith('/zh/')) path = path.slice(3);
     return path === '/' ? '/?lang=en' : `${path}?lang=en`;
   }
+  if (path === '/') return '/?lang=zh';
+  if (path === '/zh/resources/') return '/zh/resources/?lang=zh';
   if (path === '/resources/') return '/zh/resources/?lang=zh';
   return `${path}?lang=zh`;
 };
+const zh = currentLang === 'zh';
+const navLabel = {
+  learning: zh ? '学习' : 'Learn',
+  skills: zh ? '技能' : 'Skills',
+  resources: zh ? '资源' : 'Resources',
+  community: zh ? '社区' : 'Community',
+  allResources: zh ? '全部资源' : 'All Resources',
+};
 const labelMap: Record<string, string> = {
-  guide: '指南',
-  install: '安装',
-  local: '本地安装',
-  cloud: '云端部署',
-  cost: '成本规划',
-  models: '模型与推理策略',
-  integrations: '消息平台接入',
-  skills: '技能市场与自定义技能',
-  automation: '自动化与工作流',
-  architecture: '架构与安全',
-  'system-design': '系统架构',
-  security: '安全总览',
-  checklist: '安全检查清单',
+  guide: zh ? '指南' : 'Guide',
+  install: zh ? '安装' : 'Install',
+  local: zh ? '本地安装' : 'Local Install',
+  cloud: zh ? '云端部署' : 'Cloud Deploy',
+  cost: zh ? '成本规划' : 'Cost Planning',
+  models: zh ? '模型与推理策略' : 'Models & Inference',
+  integrations: zh ? '消息平台接入' : 'Integrations',
+  skills: zh ? '技能市场与自定义技能' : 'Skills & Custom Skills',
+  automation: zh ? '自动化与工作流' : 'Automation',
+  architecture: zh ? '架构与安全' : 'Architecture',
+  'system-design': zh ? '系统架构' : 'System Design',
+  security: zh ? '安全总览' : 'Security',
+  checklist: zh ? '安全检查清单' : 'Security Checklist',
   faq: 'FAQ',
-  'what-is-ai-openclaw': '什么是 ai openclaw',
-  'how-to-start-ai-openclaw': '如何开始',
-  'how-much-does-it-cost': '成本是多少',
-  'is-it-safe': '是否安全',
-  'how-to-run-24x7': '如何 24x7 运行',
-  'use-cases': '场景模板',
-  'content-team': '内容团队自动化',
-  'founder-assistant': '创业者个人助手',
-  zh: '中文',
-  resources: '资源',
-  day: '7天学习路径',
-  '1': '第1天',
-  '2': '第2天',
-  '3': '第3天',
-  '4': '第4天',
-  '5': '第5天',
-  '6': '第6天',
-  '7': '第7天',
+  'what-is-ai-openclaw': zh ? '什么是 ai openclaw' : 'What is ai openclaw',
+  'how-to-start-ai-openclaw': zh ? '如何开始' : 'How to start',
+  'how-much-does-it-cost': zh ? '成本是多少' : 'How much it costs',
+  'is-it-safe': zh ? '是否安全' : 'Is it safe',
+  'how-to-run-24x7': zh ? '如何 24x7 运行' : 'How to run 24x7',
+  'use-cases': zh ? '场景模板' : 'Use Cases',
+  'content-team': zh ? '内容团队自动化' : 'Content Team',
+  'founder-assistant': zh ? '创业者个人助手' : 'Founder Assistant',
+  zh: zh ? '中文' : 'Chinese',
+  resources: zh ? '资源' : 'Resources',
+  day: zh ? '7天学习路径' : '7-Day Path',
+  '1': zh ? '第1天' : 'Day 1',
+  '2': zh ? '第2天' : 'Day 2',
+  '3': zh ? '第3天' : 'Day 3',
+  '4': zh ? '第4天' : 'Day 4',
+  '5': zh ? '第5天' : 'Day 5',
+  '6': zh ? '第6天' : 'Day 6',
+  '7': zh ? '第7天' : 'Day 7',
 };
 const segments = pathname.split('/').filter(Boolean);
 const crumbs = segments.map((seg, idx) => ({
@@ -60,15 +71,16 @@ const crumbs = segments.map((seg, idx) => ({
     <span class="hero-100-brand">awesome openclaw</span>
   </div>
   <nav class="hero-100-nav">
-    <a class={navClass('learning')} href="/#learning-path">学习</a>
-    <a class={navClass('skills')} href="/#skills">技能</a>
-    <a class={navClass('resources')} href="/#resources">资源</a>
-    <a class={navClass('community')} href="/#community">社区</a>
-    <a class={navClass('all-resources')} href="/zh/resources/">全部资源</a>
+    <a class={navClass('learning')} href="/#learning-path">{navLabel.learning}</a>
+    <a class={navClass('skills')} href="/#skills">{navLabel.skills}</a>
+    <a class={navClass('resources')} href="/#resources">{navLabel.resources}</a>
+    <a class={navClass('community')} href="/#community">{navLabel.community}</a>
+    <a class={navClass('all-resources')} href={currentLang === 'zh' ? '/zh/resources/?lang=zh' : '/zh/resources/?lang=en'}>{navLabel.allResources}</a>
   </nav>
   <div class="flex items-center gap-3 text-white">
     <a
       href={withLang('en')}
+      data-lang-switch="en"
       class={`px-2 py-1 rounded-md text-xs transition-colors ${currentLang === 'en' ? 'border border-white/25 bg-white/20 font-semibold' : 'border border-white/10 bg-white/10 hover:bg-white/15'}`}
       aria-label="Switch to English"
     >
@@ -76,6 +88,7 @@ const crumbs = segments.map((seg, idx) => ({
     </a>
     <a
       href={withLang('zh')}
+      data-lang-switch="zh"
       class={`px-2 py-1 rounded-md text-xs transition-colors ${currentLang === 'zh' ? 'border border-white/25 bg-white/20 font-semibold' : 'border border-white/10 bg-white/10 hover:bg-white/15'}`}
       aria-label="切换到中文"
     >
@@ -90,7 +103,7 @@ const crumbs = segments.map((seg, idx) => ({
 </div>
 {!isHome && (
   <div class="oc-breadcrumb">
-    <a href="/">首页</a>
+    <a href="/">{zh ? '首页' : 'Home'}</a>
     {crumbs.map((crumb) => (
       <>
         <span class="sep">/</span>
@@ -99,6 +112,51 @@ const crumbs = segments.map((seg, idx) => ({
     ))}
   </div>
 )}
+<script is:inline>
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    const KEY = 'site_lang';
+    const isValid = (value) => value === 'en' || value === 'zh';
+
+    if (isValid(urlLang)) {
+      localStorage.setItem(KEY, urlLang);
+      return;
+    }
+
+    const storedLang = localStorage.getItem(KEY);
+    if (isValid(storedLang)) {
+      if (storedLang === 'zh') {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', 'zh');
+        window.location.replace(url.toString());
+      }
+      return;
+    }
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    const langs = navigator.languages || [navigator.language];
+    const isCNLanguage = langs.some((lang) => /^zh(-|$)/i.test(lang));
+    const isCNTimezone = /^Asia\/(Shanghai|Chongqing|Harbin|Urumqi)$/i.test(timezone);
+    const autoLang = isCNLanguage || isCNTimezone ? 'zh' : 'en';
+    localStorage.setItem(KEY, autoLang);
+
+    if (autoLang === 'zh') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', 'zh');
+      window.location.replace(url.toString());
+    }
+  })();
+
+  document.querySelectorAll('[data-lang-switch]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const lang = el.getAttribute('data-lang-switch');
+      if (lang === 'en' || lang === 'zh') {
+        localStorage.setItem('site_lang', lang);
+      }
+    });
+  });
+</script>
 
 <style is:global>
   .hero-100-top {

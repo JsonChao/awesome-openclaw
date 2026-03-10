@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aiopenclaw.app/sitemap.xml
+Sitemap: https://aiopenclaw.app/sitemap-index.xml
+

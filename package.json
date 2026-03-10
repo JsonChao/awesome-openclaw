@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "build:cf": "astro check && astro build",
-    "deploy:cf": "wrangler pages deploy dist",
+    "deploy:cf": "wrangler pages deploy dist --project-name=awesome-openclaw",
     "preview": "astro preview",
     "astro": "astro"
   },

@@ -86,6 +86,11 @@ Cloudflare Pages 推荐配置：
 - Build command: `npm run build:cf`
 - Build output directory: `dist`
 - Node.js version: `20`（或更高）
+- Deploy command: `npm run deploy:cf`（或留空使用 Pages 默认流程）
+
+注意：
+- 不要使用 `npx wrangler deploy`，这是 Worker 命令，不是 Pages 命令。
+- 如果日志里出现 `wrangler deploy`，请到 Cloudflare 项目设置里把 Deploy command 改为 `npm run deploy:cf`。
 
 如果你用 Wrangler 手动部署：
 ```bash
