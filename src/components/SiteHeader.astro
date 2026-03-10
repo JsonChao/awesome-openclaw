@@ -80,7 +80,7 @@ const crumbs = segments.map((seg, idx) => ({
     <a class={navClass('skills')} href={`${homeBase}#skills`}>{navLabel.skills}</a>
     <a class={navClass('resources')} href={`${homeBase}#resources`}>{navLabel.resources}</a>
     <a class={navClass('community')} href={`${homeBase}#community`}>{navLabel.community}</a>
-    <a class={navClass('all-resources')} href={currentLang === 'zh' ? '/zh/resources/?lang=zh' : '/zh/resources/?lang=en'}>{navLabel.allResources}</a>
+    <a class={navClass('all-resources')} href={currentLang === 'zh' ? '/zh/resources/' : '/resources/'}>{navLabel.allResources}</a>
   </nav>
   <div class="flex items-center gap-3 text-white">
     <a

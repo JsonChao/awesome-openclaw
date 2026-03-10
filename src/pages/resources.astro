@@ -1,13 +1,13 @@
 ---
-import '../../styles/tailwind.css';
-import '../../styles/custom.css';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import '../styles/tailwind.css';
+import '../styles/custom.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
-const pageTitle = '全网资源聚合 | ai openclaw 教程导航';
+const pageTitle = 'ai openclaw Resources | Tutorials, Skills, and Security Guides';
 const pageDescription =
-  '聚合 ai openclaw 优质教程与实践内容，覆盖官方文档、云部署、技能开发、视频课程和安全研究，支持中英双语筛选。';
-const canonicalUrl = 'https://aiopenclaw.app/zh/resources/';
+  'Curated ai openclaw resources for setup, cloud deployment, skills, automation, and security. Explore high-quality tutorials, videos, and practical implementation guides.';
+const canonicalUrl = 'https://aiopenclaw.app/resources/';
 
 const sources = [
   'Alibaba Cloud',
@@ -326,6 +326,22 @@ const categories = [
 ];
 
 const allItems = categories.flatMap((section) => section.items);
+const categoryTitleMap: Record<string, string> = {
+  '官方资源': 'Official Resources',
+  '云平台部署': 'Cloud Deployment',
+  '入门部署': 'Getting Started',
+  '技能开发与工具': 'Skill Development & Tools',
+  '视频教程': 'Video Tutorials',
+  '深度文章与安全研究': 'Deep Dives & Security Research',
+};
+const categoriesEn = categories.map((category) => ({
+  ...category,
+  title: categoryTitleMap[category.title] ?? category.title,
+  items: category.items.map((item) => ({
+    ...item,
+    lang: item.lang === '中文' ? 'ZH' : item.lang,
+  })),
+}));
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -335,7 +351,7 @@ const jsonLd = {
       name: pageTitle,
       description: pageDescription,
       url: canonicalUrl,
-      inLanguage: 'zh-CN',
+      inLanguage: 'en',
       isPartOf: {
         '@type': 'WebSite',
         name: 'awesome openclaw',
@@ -345,13 +361,13 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '首页', item: 'https://aiopenclaw.app/' },
-        { '@type': 'ListItem', position: 2, name: '全网资源聚合', item: canonicalUrl },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://aiopenclaw.app/' },
+        { '@type': 'ListItem', position: 2, name: 'Resources', item: canonicalUrl },
       ],
     },
     {
       '@type': 'ItemList',
-      name: 'ai openclaw 资源列表',
+      name: 'ai openclaw resource directory',
       itemListElement: allItems.slice(0, 20).map((item, index) => ({
         '@type': 'ListItem',
         position: index + 1,
@@ -363,7 +379,7 @@ const jsonLd = {
 };
 ---
 
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -410,10 +426,10 @@ const jsonLd = {
     <section class="resources-hero">
       <SiteHeader active="all-resources" />
       <div class="max-w-6xl mx-auto px-4 py-12 sm:py-16 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">📚 精选收录</div>
-        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">全网优质资源聚合</h1>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">📚 Curated Collection</div>
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Top ai openclaw Resources</h1>
         <p class="text-base sm:text-lg text-blue-100 max-w-3xl mx-auto">
-          从阿里云、腾讯云到 DigitalOcean，从 B站到 Codecademy，一站式获取 OpenClaw 最佳教程与安全实践资料。
+          From Alibaba Cloud and Tencent Cloud to DigitalOcean, YouTube, and Codecademy. One place for practical ai openclaw tutorials and security playbooks.
         </p>
       </div>
     </section>
@@ -423,15 +439,15 @@ const jsonLd = {
         <div class="flex items-start gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm">
           <span class="text-lg mt-0.5">⚠️</span>
           <p>
-            <span class="font-semibold">安全提醒：</span>
-            近期发现恶意 Skills 通过社区渠道分发，安装第三方 Skill 前请先审查源码，优先选择官方与社区审核通过的来源。
+            <span class="font-semibold">Security Notice:</span>
+            Malicious skills have been distributed through community channels. Review source code before installing third-party skills and prioritize trusted sources.
             <a
               href="https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html"
               target="_blank"
               rel="noopener noreferrer"
               class="ml-1 underline hover:text-amber-900"
             >
-              详情 ↗
+              Details ↗
             </a>
           </p>
         </div>
@@ -439,17 +455,17 @@ const jsonLd = {
 
       <section class="mb-10">
         <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-center">
-          <div><div class="text-3xl font-bold text-blue-600">999+</div><div class="text-sm text-slate-500">篇教程</div></div>
-          <div><div class="text-3xl font-bold text-green-600">48</div><div class="text-sm text-slate-500">中文资源</div></div>
-          <div><div class="text-3xl font-bold text-purple-600">331</div><div class="text-sm text-slate-500">英文资源</div></div>
-          <div><div class="text-3xl font-bold text-orange-600">9</div><div class="text-sm text-slate-500">大分类</div></div>
+          <div><div class="text-3xl font-bold text-blue-600">999+</div><div class="text-sm text-slate-500">Tutorials</div></div>
+          <div><div class="text-3xl font-bold text-green-600">48</div><div class="text-sm text-slate-500">Chinese Resources</div></div>
+          <div><div class="text-3xl font-bold text-purple-600">331</div><div class="text-sm text-slate-500">English Resources</div></div>
+          <div><div class="text-3xl font-bold text-orange-600">9</div><div class="text-sm text-slate-500">Core Categories</div></div>
         </div>
       </section>
 
       <section class="mb-10">
-        <h2 class="sr-only">资源来源</h2>
+        <h2 class="sr-only">Resource Sources</h2>
         <div class="flex flex-wrap items-center justify-center gap-2 text-sm text-slate-500">
-          <span>收录来源：</span>
+          <span>Sources:</span>
           {sources.map((source) => (
             <span class="px-3 py-1 bg-white rounded-full border border-slate-200 text-xs">{source}</span>
           ))}
@@ -457,14 +473,14 @@ const jsonLd = {
       </section>
 
       <div class="space-y-8">
-        {categories.map((category) => (
+        {categoriesEn.map((category) => (
           <section class="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6">
             <div class="flex items-center justify-between gap-3 mb-5">
               <h2 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
                 <span>{category.icon}</span>
                 <span>{category.title}</span>
               </h2>
-              <span class={`text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-full border ${category.colorClass}`}>{category.count} 篇</span>
+              <span class={`text-xs sm:text-sm font-semibold px-2.5 py-1 rounded-full border ${category.colorClass}`}>{category.count} items</span>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {category.items.map((item) => (
@@ -475,14 +491,14 @@ const jsonLd = {
                   class="group block bg-slate-50 rounded-xl p-4 border border-slate-200 hover:border-blue-300 hover:bg-white transition-colors"
                 >
                   <div class="flex items-center justify-between gap-2 mb-2">
-                    <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full border border-slate-200 bg-white text-slate-600">资源</span>
+                    <span class="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full border border-slate-200 bg-white text-slate-600">Resource</span>
                     <span class="text-[10px] px-2 py-0.5 rounded-full border border-slate-200 bg-white text-slate-600">{item.lang}</span>
                   </div>
                   <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">{item.title}</h3>
                   <p class="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-3">{item.desc}</p>
                   <div class="mt-3 flex items-center justify-between text-xs sm:text-sm">
                     <span class="text-slate-500">{item.source}</span>
-                    <span class="text-blue-600 font-medium">访问 ↗</span>
+                    <span class="text-blue-600 font-medium">Visit ↗</span>
                   </div>
                 </a>
               ))}
@@ -492,14 +508,14 @@ const jsonLd = {
       </div>
 
       <section class="text-center mt-10">
-        <a href="/zh/" class="group inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl transition-colors">
-          返回首页继续学习
+        <a href="/" class="group inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl transition-colors">
+          Back to Home
           <span class="group-hover:translate-x-1 transition-transform">→</span>
         </a>
         <p class="text-slate-500 text-sm mt-3">
-          持续更新中 ·
+          Continuously updated ·
           <a href="https://github.com/JsonChao/awesome-openclaw" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">
-            欢迎提交 PR 补充资源
+            PRs welcome for more resources
           </a>
         </p>
       </section>
