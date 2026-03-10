@@ -68,5 +68,15 @@ const jsonLd = [webSite, org, webPage, ...(breadcrumb ? [breadcrumb] : [])];
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "vtl8drghnb");
 </script>
+<meta property="og:type" content="website" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:url" content={url} />
+<meta property="og:description" content={pageDescription} />
+<meta property="og:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@JsonChao" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={pageDescription} />
+<meta name="twitter:image" content="https://aiopenclaw.app/images/ai-openclaw-logo.png" />
 {head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
 <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
